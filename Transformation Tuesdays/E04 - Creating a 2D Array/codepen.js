@@ -65,7 +65,7 @@ var subforms = record.readings;
 var matrix = [];  // 2-D array
 var arr = [];     // single row
 
-// loop through the first subform record's keys
+// loop through the keys of the subform record
 for(var key in subforms[0]) {
    arr = [key]; // add the key to the single row
    for(var i=0; i < subforms.length; i++) {
