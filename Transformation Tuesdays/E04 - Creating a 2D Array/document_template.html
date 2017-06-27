@@ -1,0 +1,21 @@
+<table>
+  <thead>
+    <tr>
+      <th>Reading</th>
+      <th>Trial 1</th>
+      <th>Trial 2</th>
+      <th>Trial 3</th>
+      <th>Trial 4</th>
+      <th>Trial 5</th>
+    </tr>
+  </thead>
+  <tbody>
+    {foreach from=$readings item=line}
+    <tr>
+      {foreach from=$line item=cell}
+      <td>{$cell}</td>
+      {/foreach}
+    </tr>
+    {/foreach}
+  </tbody>
+</table>
