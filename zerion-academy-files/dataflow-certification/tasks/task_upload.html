@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <title></title>
+    <style type="text/css">
+        body div {
+            margin: auto;
+            text-align: center;
+        }
+
+        button {
+           border: 1px solid #89bd48;
+           background-color: #89bd48;
+           font-size: 125%;
+        }
+
+        textarea#dataflow_file {
+            max-width: 90%;
+            max-height: 500px;
+            min-width: 80%;
+            min-height: 300px;
+            font-family: "Consolas","Monaco",monospace;
+        }
+
+        #accepted {
+           font-size: 150%;
+           background-color: #89bd48;
+        }
+
+        #accepted, #error, #upload_error, #submit {
+           display: none;
+        }
+        #assignment_ss {
+           max-width: 50%;
+        }
+    </style>
+    <script>
+        $(document).ready(function() {
+
+            $("#btn_submit").click(function() {
+               var json_valid = true;
+               try {
+                  var payload = JSON.parse($("#dataflow_file").val());
+               } catch (e) {
+                  json_valid = false;
+               }
+
+               if (json_valid === true) {
+                  var xhr = new XMLHttpRequest();
+                  xhr.open("POST", "https://qa-dataflownode.zerionsoftware.com/domain/qatest/services/webhooks/5716fc7ce66091a678e842b69dc1b63bef10d7f4-4899ea0ca2ccb5ff1694e9c89546c5eb8c7bfb37", true);
+                  xhr.setRequestHeader('Content-Type', 'application/json');
+                  xhr.send(JSON.stringify(payload));
+                  $("#accepted").slideDown();
+                  $("#submission").css("display","none");
+               } else {
+                  $("#error").text("Error");
+                  $("#error").slideDown();
+               }
+            });
+
+            $("#btn_upload").click(function() {
+               var x = document.getElementById("file_submission").files;
+               var fr = new FileReader();
+               fr.onload = function(e) {
+                  try {
+                     var result = JSON.parse(e.target.result);
+                     var formatted = JSON.stringify(result, null, 2);
+                     document.getElementById("dataflow_file").value = formatted;
+                     $("#upload").slideUp();
+                     $("#upload_error").slideUp();
+                     $("#submit").slideDown();
+                  } catch(err) {
+                     $("#upload_error").slideDown();
+                  }
+               }
+               fr.readAsText(x.item(0));
+            });
+
+            $("#btn_reset").click(function() {
+               $("#dataflow_file").val("");
+               $("#file_submission").val("");
+               $("#submit").slideUp();
+               $("#upload").slideDown();
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div id="accepted">Thank you for submitting your Dataflow</div>
+    <div id="error">&nbsp;</div>
+    <div id="submission">
+      <img id="assignment_ss" src="assignment_ss.png" /><br />
+      <textarea id="dataflow_file" readonly></textarea><br />
+      <div id="upload">
+         <input type="file" id="file_submission" /><br /><br />
+         <button id="btn_upload">Import Dataflow File</button>
+         <div id="upload_error" style="display: none">
+            The selected file is not valid JSON, please upload a different file.
+         </div>
+      </div>
+
+      <div id="submit">
+         <button id="btn_reset">Reset File Import</button>
+         <button id="btn_submit">Submit Dataflow</button>
+      </div>
+   </div>
+</body>
+
+</html>
