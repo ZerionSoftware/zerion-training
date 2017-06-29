@@ -59,10 +59,42 @@
             margin-bottom: 40px;
             z-index: 900;
         }
+
         textarea#dataflow_file {
-           margin-top: 1em;
-           min-width: 100%;
-           min-height: 300px;
+            font-family: monospace;
+            margin-top: 1em;
+            min-width: 100%;
+            min-height: 300px;
+        }
+
+        .demo-ribbon {
+            background-color: #89bd48;
+            !important;
+        }
+
+        .inputfile {
+            width: 0.1px;
+            height: 0.1px;
+            opacity: 0;
+            overflow: hidden;
+            position: absolute;
+            z-index: -1;
+        }
+
+        label.submit_task {
+            padding: 10px;
+            font-size: 125%;
+            background-color: #89bd48;
+        }
+
+        .inputfile+label {
+            cursor: pointer;
+            /* "hand" cursor */
+        }
+
+        .submit_task+label {
+            cursor: pointer;
+            /* "hand" cursor */
         }
     </style>
 </head>
@@ -101,17 +133,47 @@
                         <div class="mdl-tabs__panel is-active" id="instruction-panel">
                             <!-- Instructions -->
                             <h4>What Do I Do?</h4>
-                            <p>asdf</p>
+                            <p>In this certification task you will be required to recreate the Dataflow shown in the <strong>Dataflow Model</strong> tab. Begin by creating a new Dataflow and make sure your username is included in the name. Upon completion,
+                                export the Dataflow and in the <strong>Submit Task</strong> tab follow the instructions to upload your submission for review.</p>
+                            <p>After submitting your Dataflow, check your email for the results. Any mistakes will be noted in the result email. When the task is successfully completed your certification progress will be updated.</p>
+                            <p>The following requirements must be met:
+                                <ul>
+                                    <li>Dataflow name includes your username</li>
+                                    <li>Same number of Dataflow Objects</li>
+                                    <li>Dataflow Object names must match exactly</li>
+                                    <li>Type of each Dataflow Object must be correct</li>
+                                    <li>RecordSets are linked correctly</li>
+                                </ul>
+                            </p>
                         </div>
                         <div class="mdl-tabs__panel" id="solution-panel">
                             <!-- Solution Image -->
                             <p>
                                 <img src="images/solution.png" width="100%" />
                             </p>
+                            <h5>List of Dataflow Object Names</h5>
+                            <ul>
+                                <li>wh_data_collector</li>
+                                <li>full_records</li>
+                                <li>parent_records</li>
+                                <li>overall_count</li>
+                                <li>subform_records</li>
+                                <li>passing_scores</li>
+                                <li>failing_scores</li>
+                            </ul>
                         </div>
                         <div class="mdl-tabs__panel" id="submission-panel">
                             <!-- Submission -->
-                            <textarea id="dataflow_file">asdf</textarea>
+                            <p>
+                                <textarea id="dataflow_file"></textarea>
+                            </p>
+                            <div style="float: left;">
+                               <input type="file" name="file" id="file" class="inputfile" />
+                               <label for="file" class="submit_task">Choose a file</label>
+                            </div>
+                            <div style="float: right">
+                               <label class="submit_task">Submit Dataflow</label>
+                         </div>
                         </div>
                     </div>
                     <!-- End of Content -->
