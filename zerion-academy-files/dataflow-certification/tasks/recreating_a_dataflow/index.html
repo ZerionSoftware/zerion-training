@@ -97,6 +97,46 @@
             /* "hand" cursor */
         }
     </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $("#submit").click(function() {
+                var json_valid = true;
+                try {
+                    var payload = JSON.parse($("#dataflow_file").val());
+                } catch (e) {
+                    json_valid = false;
+                }
+
+                if (json_valid === true) {
+                    var xhr = new XMLHttpRequest();
+                    xhr.open("POST", "https://qa-dataflownode.zerionsoftware.com/domain/qatest/services/webhooks/5716fc7ce66091a678e842b69dc1b63bef10d7f4-4899ea0ca2ccb5ff1694e9c89546c5eb8c7bfb37", true);
+                    xhr.setRequestHeader('Content-Type', 'application/json');
+                    xhr.send(JSON.stringify(payload));
+
+                    $("#task_submitted").css("display","initial");
+                    $("#task_interface").slideUp();
+                } else {
+                    alert("uh oh");
+                }
+            });
+
+            $("#file").change(function() {
+                var x = document.getElementById("file").files;
+                var fr = new FileReader();
+                fr.onload = function(e) {
+                    try {
+                        var result = JSON.parse(e.target.result);
+                        var formatted = JSON.stringify(result, null, 2);
+                        document.getElementById("dataflow_file").value = formatted;
+                    } catch (err) {
+                        document.getElementById("dataflow_file").value = "";
+                    }
+                }
+                fr.readAsText(x.item(0));
+            });
+        });
+    </script>
 </head>
 
 <body>
@@ -107,66 +147,70 @@
                 <div class="mdl-cell mdl-cell--2-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
                 <div class="demo-content mdl-color--white mdl-shadow--4dp content mdl-color-text--grey-800 mdl-cell mdl-cell--8-col">
                     <!-- Beginning of Content -->
-
-                    <!-- <h4>Task: Recreating a Dataflow</h4> -->
-                    <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
-                        <div class="mdl-tabs__tab-bar">
-                            <a href="#instruction-panel" class="mdl-tabs__tab is-active">Task Instructions</a>
-                            <a href="#solution-panel" class="mdl-tabs__tab">Dataflow Model</a>
-                            <a href="#submission-panel" class="mdl-tabs__tab">Submit Task</a>
-                        </div>
-                        <div class="mdl-tabs__panel is-active" id="instruction-panel">
-                            <!-- Instructions -->
-                            <h4>What Do I Do?</h4>
-                            <p>In this certification task you will be required to recreate the Dataflow shown in the <strong>Dataflow Model</strong> tab. Begin by creating a new Dataflow and make sure your username is included in the name. Upon completion,
-                                export the Dataflow and in the <strong>Submit Task</strong> tab follow the instructions to upload your submission for review.</p>
-                            <p>After submitting your Dataflow, check your email for the results. Any mistakes will be noted in the result email. When the task is successfully completed your certification progress will be updated.</p>
-                            <p>The following requirements must be met:
-                                <ul>
-                                    <li>Dataflow name includes your username</li>
-                                    <li>Same number of Dataflow Objects</li>
-                                    <li>Dataflow Object names must match exactly</li>
-                                    <li>Type of each Dataflow Object must be correct</li>
-                                    <li>RecordSets are linked correctly</li>
-                                </ul>
-                            </p>
-                        </div>
-                        <div class="mdl-tabs__panel" id="solution-panel">
-                            <!-- Solution Image -->
-                            <p>
-                                <img src="images/solution.png" width="100%" />
-                            </p>
-                            <h5>List of Dataflow Object Names</h5>
-                            <ul>
-                                <li>wh_data_collector</li>
-                                <li>full_records</li>
-                                <li>parent_records</li>
-                                <li>overall_count</li>
-                                <li>subform_records</li>
-                                <li>passing_scores</li>
-                                <li>failing_scores</li>
-                            </ul>
-                        </div>
-                        <div class="mdl-tabs__panel" id="submission-panel">
-                            <!-- Submission -->
-                            <p>
-                                <textarea id="dataflow_file"></textarea>
-                            </p>
-                            <div style="float: left;">
-                               <input type="file" name="file" id="file" class="inputfile" />
-                               <label for="file" class="submit_task">Choose a file</label>
-                            </div>
-                            <div style="float: right">
-                               <label class="submit_task">Submit Dataflow</label>
-                         </div>
-                        </div>
+                    <div id="task_submitted" style="text-align: center; display: none;">
+                       <h3>Thank you for your submission, please check your email for the results!</h3>
                     </div>
-                    <!-- End of Content -->
+                    <div id="task_interface">
+                        <!-- <h4>Task: Recreating a Dataflow</h4> -->
+                        <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+                            <div class="mdl-tabs__tab-bar">
+                                <a href="#instruction-panel" class="mdl-tabs__tab is-active">Task Instructions</a>
+                                <a href="#solution-panel" class="mdl-tabs__tab">Dataflow Model</a>
+                                <a href="#submission-panel" class="mdl-tabs__tab">Submit Task</a>
+                            </div>
+                            <div class="mdl-tabs__panel is-active" id="instruction-panel">
+                                <!-- Instructions -->
+                                <h4>What Do I Do?</h4>
+                                <p>In this certification task you will be required to recreate the Dataflow shown in the <strong>Dataflow Model</strong> tab. Begin by creating a new Dataflow and make sure your username is included in the name. Upon completion,
+                                    export the Dataflow and in the <strong>Submit Task</strong> tab follow the instructions to upload your submission for review.</p>
+                                <p>After submitting your Dataflow, check your email for the results. Any mistakes will be noted in the result email. When the task is successfully completed your certification progress will be updated.</p>
+                                <p>The following requirements must be met:
+                                    <ul>
+                                        <li>Dataflow name includes your username</li>
+                                        <li>Same number of Dataflow Objects</li>
+                                        <li>Dataflow Object names must match exactly</li>
+                                        <li>Type of each Dataflow Object must be correct</li>
+                                        <li>RecordSets are linked correctly</li>
+                                    </ul>
+                                </p>
+                            </div>
+                            <div class="mdl-tabs__panel" id="solution-panel">
+                                <!-- Solution Image -->
+                                <p>
+                                    <img src="images/solution.png" width="100%" />
+                                </p>
+                                <h5>List of Dataflow Object Names</h5>
+                                <ul>
+                                    <li>wh_data_collector</li>
+                                    <li>full_records</li>
+                                    <li>parent_records</li>
+                                    <li>overall_count</li>
+                                    <li>subform_records</li>
+                                    <li>passing_scores</li>
+                                    <li>failing_scores</li>
+                                </ul>
+                            </div>
+                            <div class="mdl-tabs__panel" id="submission-panel">
+                                <!-- Submission -->
+                                <p>
+                                    <textarea id="dataflow_file" readonly="readonly"></textarea>
+                                </p>
+                                <div style="float: left;">
+                                    <input type="file" name="file" id="file" class="inputfile" />
+                                    <label for="file" class="submit_task">Import a Dataflow</label>
+                                </div>
+                                <div style="float: right">
+                                    <label class="submit_task" id="submit">Submit Dataflow for Review</label>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End of Content -->
+                    </div>
                 </div>
-            </div>
         </main>
-    </div>
-    <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+        </div>
+        <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+
 </body>
 
 </html>
