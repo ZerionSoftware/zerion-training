@@ -65,7 +65,7 @@
             !important;
         }
 
-        .demo-list-item {
+        .demo-list-icon {
             width: 300px;
         }
     </style>
@@ -84,6 +84,7 @@
                         <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
                             <div class="mdl-tabs__tab-bar">
                                 <a href="#instruction-panel" class="mdl-tabs__tab is-active">Instructions</a>
+                                <a href="#record-panel" class="mdl-tabs__tab">Sample Record</a>
                                 <a href="#requirements-panel" class="mdl-tabs__tab">Requirements</a>
                                 <a href="#submission-panel" class="mdl-tabs__tab">Submit Task</a>
                             </div>
@@ -91,24 +92,30 @@
                                 <!-- Instructions -->
                                 <h4>What Do I Do?</h4>
                             </div>
+                            <div class="mdl-tabs__panel" id="record-panel">
+                                <h4>Sample Record</h4>
+                            </div>
                             <div class="mdl-tabs__panel" id="requirements-panel">
                                 <h4>Assignment Requirements</h4>
-                                <ul class="demo-list-item mdl-list">
-                                    <li class="mdl-list__item">
-                                        <span class="mdl-list__item-primary-content">
-      Bryan Cranston
-    </span>
-                                    </li>
-                                    <li class="mdl-list__item">
-                                        <span class="mdl-list__item-primary-content">
-      Aaron Paul
-    </span>
-                                    </li>
-                                    <li class="mdl-list__item">
-                                        <span class="mdl-list__item-primary-content">
-      Bob Odenkirk
-    </span>
-                                    </li>
+                                <ul class="demo-list-icon mdl-list">
+                                  <li class="mdl-list__item">
+                                    <span class="mdl-list__item-primary-content">
+                                    <i class="material-icons mdl-list__item-icon">check</i>
+                                    Dataflow has working Webhook
+                                </span>
+                                  </li>
+                                  <li class="mdl-list__item">
+                                    <span class="mdl-list__item-primary-content">
+                                    <i class="material-icons mdl-list__item-icon">check</i>
+                                    Aaron Paul
+                                  </span>
+                                  </li>
+                                  <li class="mdl-list__item">
+                                    <span class="mdl-list__item-primary-content">
+                                    <i class="material-icons mdl-list__item-icon">check</i>
+                                    Bob Odenkirk
+                                  </span>
+                                  </li>
                                 </ul>
                             </div>
                             <div class="mdl-tabs__panel" id="submission-panel">

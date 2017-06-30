@@ -130,7 +130,7 @@
                         var formatted = JSON.stringify(result, null, 2);
                         document.getElementById("dataflow_file").value = formatted;
                     } catch (err) {
-                        document.getElementById("dataflow_file").value = "";
+                        document.getElementById("dataflow_file").value = "Not a valid JSON file";
                     }
                 }
                 fr.readAsText(x.item(0));
