@@ -16,7 +16,8 @@
   limitations under the License
 -->
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="A front-end template that helps you build fast, modern mobile web apps.">
@@ -49,53 +50,77 @@
     <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.teal-red.min.css">
     <link rel="stylesheet" href="styles.css">
     <style>
-    #view-source {
-      position: fixed;
-      display: block;
-      right: 0;
-      bottom: 0;
-      margin-right: 40px;
-      margin-bottom: 40px;
-      z-index: 900;
-    }
-    .demo-ribbon {
-       background-color: #89bd48;
-       !important;
-   }
+        #view-source {
+            position: fixed;
+            display: block;
+            right: 0;
+            bottom: 0;
+            margin-right: 40px;
+            margin-bottom: 40px;
+            z-index: 900;
+        }
+
+        .demo-ribbon {
+            background-color: #89bd48;
+            !important;
+        }
+
+        .demo-list-item {
+            width: 300px;
+        }
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  </head>
-  <body>
+</head>
+
+<body>
     <div class="demo-layout mdl-layout mdl-layout--fixed-header mdl-js-layout mdl-color--grey-100">
-      <div class="demo-ribbon"></div>
-      <main class="demo-main mdl-layout__content">
-        <div class="demo-container mdl-grid">
-          <div class="mdl-cell mdl-cell--2-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
-          <div class="demo-content mdl-color--white mdl-shadow--4dp content mdl-color-text--grey-800 mdl-cell mdl-cell--8-col">
-             <!-- Beginning of Content -->
-             <div id="task_interface">
-                 <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
-                     <div class="mdl-tabs__tab-bar">
-                        <a href="#instruction-panel" class="mdl-tabs__tab is-active">Instructions</a>
-                        <a href="#requirements-panel" class="mdl-tabs__tab">Requirements</a>
-                        <a href="#submission-panel" class="mdl-tabs__tab">Submit Task</a>
-                     </div>
-                     <div class="mdl-tabs__panel is-active" id="instruction-panel">
-                        <!-- Instructions -->
-                        <h4>What Do I Do?</h4>
-                     </div>
-                     <div class="mdl-tabs__panel" id="requirements-panel">
-                        <h4>Assignment Requirements</h4>
-                     </div>
-                     <div class="mdl-tabs__panel" id="submission-panel">
-                        <h4>How to Submit the Task</h4>
-                     </div>
-                 </div>
-                 <!-- End of Content -->
-          </div>
+        <div class="demo-ribbon"></div>
+        <main class="demo-main mdl-layout__content">
+            <div class="demo-container mdl-grid">
+                <div class="mdl-cell mdl-cell--2-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
+                <div class="demo-content mdl-color--white mdl-shadow--4dp content mdl-color-text--grey-800 mdl-cell mdl-cell--8-col">
+                    <!-- Beginning of Content -->
+                    <div id="task_interface">
+                        <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+                            <div class="mdl-tabs__tab-bar">
+                                <a href="#instruction-panel" class="mdl-tabs__tab is-active">Instructions</a>
+                                <a href="#requirements-panel" class="mdl-tabs__tab">Requirements</a>
+                                <a href="#submission-panel" class="mdl-tabs__tab">Submit Task</a>
+                            </div>
+                            <div class="mdl-tabs__panel is-active" id="instruction-panel">
+                                <!-- Instructions -->
+                                <h4>What Do I Do?</h4>
+                            </div>
+                            <div class="mdl-tabs__panel" id="requirements-panel">
+                                <h4>Assignment Requirements</h4>
+                                <ul class="demo-list-item mdl-list">
+                                    <li class="mdl-list__item">
+                                        <span class="mdl-list__item-primary-content">
+      Bryan Cranston
+    </span>
+                                    </li>
+                                    <li class="mdl-list__item">
+                                        <span class="mdl-list__item-primary-content">
+      Aaron Paul
+    </span>
+                                    </li>
+                                    <li class="mdl-list__item">
+                                        <span class="mdl-list__item-primary-content">
+      Bob Odenkirk
+    </span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="mdl-tabs__panel" id="submission-panel">
+                                <h4>How to Submit the Task</h4>
+                            </div>
+                        </div>
+                        <!-- End of Content -->
+                    </div>
+                </div>
+        </main>
         </div>
-      </main>
-    </div>
-    <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
-  </body>
+        <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+</body>
+
 </html>
