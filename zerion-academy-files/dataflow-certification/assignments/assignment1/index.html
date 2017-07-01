@@ -68,11 +68,26 @@
         .demo-list-icon {
             width: 300px;
         }
+
+        .code {
+            font-family: 'Ubuntu Mono', 'Monaco', 'Consolas', 'monospace';
+            font-size: 110%;
+        }
+
         .mdl-tabs.is-upgraded .mdl-tabs__tab.is-active:after {
             background: rgb(123, 170, 64) !important;
         }
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#btn_copy_record').click(function() {
+               $.getJSON('records.json',function() {
+                  console.log("success");
+               });
+            });
+        });
+    </script>
 </head>
 
 <body>
@@ -93,9 +108,125 @@
                             <div class="mdl-tabs__panel is-active" id="instruction-panel">
                                 <!-- Instructions -->
                                 <h4>What Do I Do?</h4>
+                                <p>asdf</p>
                             </div>
                             <div class="mdl-tabs__panel" id="record-panel">
                                 <h4>Sample Record</h4>
+                                <div style="overflow: scroll; height: 400px;" id="sample_record">
+                                    <pre><code>{
+   "id": 2,
+   "parent_record_id": 0,
+   "parent_page_id": 0,
+   "parent_element_id": 0,
+   "created_date": "2017-07-01T15:42:50+00:00",
+   "created_by": "jhsu_qatest",
+   "created_location": "38.957350:-77.414456:74.900002:20.584999:20.584999:0.000000:0.000000:1498938081280.000000",
+   "created_device_id": "357903062464155",
+   "modified_date": "2017-07-01T15:46:14+00:00",
+   "modified_by": "jhsu_qatest",
+   "modified_location": "38.957350:-77.414456:74.900002:20.587000:20.587000:0.000000:0.000000:1498938343424.000000",
+   "modified_device_id": "357903062464155",
+   "server_modified_date": "2017-07-01T15:47:00+00:00",
+   "insured_name": "Jonathan Hsu",
+   "insurance_provider": "Aetna",
+   "property_address": "123 Main Street",
+   "property_city": "Herndon",
+   "property_state": "VA",
+   "property_zip": "22032",
+   "requested_date_of_inspection": null,
+   "confirm_gps_location": "Latitude:38.957350,\nLongitude:-77.414456,\nAltitude:74.900002,\nSpeed:0.000000,\nAccuracy:20.344000,\nProvider:network,\nTime:07/01/2017 03:39:15 EDT",
+   "elevation": null,
+   "distance_from_coast": null,
+   "inspection_type": "full",
+   "notes_from_homeowner": "Beware of dog",
+   "property_photo": "https://dl.dropbox.com/s/ldaqrpou9wtm3lt/field_10391746515957fc34e5278.jpg?dl=0",
+   "roof_details": [{
+       "id": 3,
+       "parent_record_id": 2,
+       "parent_page_id": 612,
+       "parent_element_id": 6850,
+       "created_date": "2017-07-01T15:44:37+00:00",
+       "created_by": "jhsu_qatest",
+       "created_location": "38.957350:-77.414456:74.900002:20.584999:20.584999:0.000000:0.000000:1498938081280.000000",
+       "created_device_id": "357903062464155",
+       "modified_date": "2017-07-01T15:44:38+00:00",
+       "modified_by": "jhsu_qatest",
+       "modified_location": "38.957350:-77.414456:74.900002:20.584999:20.584999:0.000000:0.000000:1498938081280.000000",
+       "modified_device_id": "357903062464155",
+       "server_modified_date": "2017-07-01T15:47:09+00:00",
+       "roof_features": "Gutters,Chimney,Skylights",
+       "type_of_roof_covoring": "none",
+       "roof_drainage_system": "yes",
+       "any_visible_damage_": "no",
+       "explain_visible_damage": null,
+       "roof_photo_1": "https://dl.dropbox.com/s/2g6nd2iduw2dwce/field_16756218655957fc3d78fb0.png?dl=0",
+       "roof_photo_2": null,
+       "roof_photo_3": null,
+       "additional_roof_comments": null
+   }],
+   "window_details": [{
+       "id": 1,
+       "parent_record_id": 2,
+       "parent_page_id": 612,
+       "parent_element_id": 6853,
+       "created_date": "2017-07-01T15:45:12+00:00",
+       "created_by": "jhsu_qatest",
+       "created_location": "38.957339:-77.414445:74.900002:20.643000:20.643000:0.000000:0.000000:1498938212352.000000",
+       "created_device_id": "357903062464155",
+       "modified_date": "2017-07-01T15:45:13+00:00",
+       "modified_by": "jhsu_qatest",
+       "modified_location": "38.957339:-77.414445:74.900002:20.643000:20.643000:0.000000:0.000000:1498938212352.000000",
+       "modified_device_id": "357903062464155",
+       "server_modified_date": "2017-07-01T15:47:14+00:00",
+       "number_of_windows_on_property__estimate_": 10,
+       "locks_functional_on_all_windows_": "yes",
+       "cracks_on_any_windows_": "no",
+       "air_drafts_on_any_windows": "yes",
+       "window_photo_1": "https://dl.dropbox.com/s/3h1boaj30njoxbb/field_5660990045957fc42f1481.png?dl=0",
+       "window_photo_2": null,
+       "window_photo_3": null,
+       "additional_comments": null
+   }],
+   "plumbing_details": [{
+       "id": 2,
+       "parent_record_id": 2,
+       "parent_page_id": 612,
+       "parent_element_id": 6856,
+       "created_date": "2017-07-01T15:45:30+00:00",
+       "created_by": "jhsu_qatest",
+       "created_location": "38.957350:-77.414456:74.900002:20.475000:20.475000:0.000000:0.000000:1498938343424.000000",
+       "created_device_id": "357903062464155",
+       "modified_date": "2017-07-01T15:45:30+00:00",
+       "modified_by": "jhsu_qatest",
+       "modified_location": "38.957350:-77.414456:74.900002:20.475000:20.475000:0.000000:0.000000:1498938343424.000000",
+       "modified_device_id": "357903062464155",
+       "server_modified_date": "2017-07-01T15:47:17+00:00",
+       "number_of_sinks_on_property": 4,
+       "number_of_showers_bathtubs_on_the_property": 2,
+       "number_of_toilets_on_the_property": 3,
+       "all_plumbing_appliances_functional_": "yes",
+       "any_leaks_on_the_property_": "no",
+       "plumbing_photo_1": null,
+       "plumbing_photo_2": null,
+       "plumbing_photo_3": null,
+       "additional_comments": null
+   }],
+   "additional_property_photos": "0",
+   "additional_notes": null,
+   "property_summary": "Very little damage",
+   "overall_property_condition": "Good",
+   "insp_sig": "https://dl.dropbox.com/s/cf4e5zhemjf7wmt/field_17782047115957fc377ee1c.png?dl=0",
+   "total_cost": "$300",
+   "inspector_email_": "jhsu@zerionsoftware.com",
+   "_id": "5957fc473c37ad8f8ea27498"
+}</code></pre>
+                                </div>
+                                <div style="float: right;">
+                                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" style="background-color: #89bd48;" id="btn_copy_record">
+  <span id="btn_copy_record_txt">Copy Record</span> <i class="material-icons">assignment</i>
+</button>
+<br /><input id="copy-record" type="text" />
+                                </div>
                             </div>
                             <div class="mdl-tabs__panel" id="submission-panel">
                                 <h4>How to Submit the Task</h4>
@@ -107,6 +238,7 @@
         </main>
         </div>
         <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+
 </body>
 
 </html>
