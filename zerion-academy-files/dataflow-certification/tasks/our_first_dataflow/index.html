@@ -65,8 +65,17 @@
             !important;
         }
 
+        span.code {
+            font-family: 'Ubuntu Mono', 'Monaco', 'Consolas', 'monospace';
+            font-size: 110%;
+        }
+
         #webhook-url {
             display: none;
+        }
+
+        .mdl-tabs.is-upgraded .mdl-tabs__tab.is-active:after {
+            background: rgb(123, 170, 64) !important;
         }
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -80,6 +89,30 @@
                 $("#clipboard").text("copied!");
             });
 
+            $("#submit-task").click(function() {
+                if ($("#submit-url").val().trim() === "" || $("#name").val().trim() === "" || $("#username").val().trim() === "" || $("#email").val().trim() === "") {
+                    alert("All fields are required and must be filled in");
+                } else {
+                    var payload = {};
+                    payload.fullname = $('#name').val();
+                    payload.username = $('#username').val();
+                    payload.email = $('#email').val();
+                    payload.timestamp = new Date();
+                    try {
+                        var xhr = new XMLHttpRequest();
+                        xhr.open("POST", $('#submit-url').val(), true);
+                        xhr.setRequestHeader('Content-Type', 'application/json');
+                        xhr.send(JSON.stringify(payload));
+                        $("#task_submitted").css("display", "initial");
+                        $("#task_interface").slideUp();
+                    } catch (e) {
+                        $('#submit-url').val() = "";
+                        $('#name').val() = "";
+                        $('#username').val() = "";
+                        $('#email').val() = "";
+                    }
+                }
+            });
         });
     </script>
 </head>
@@ -93,7 +126,7 @@
                 <div class="demo-content mdl-color--white mdl-shadow--4dp content mdl-color-text--grey-800 mdl-cell mdl-cell--8-col">
                     <!-- Beginning of Content -->
                     <div id="task_submitted" style="text-align: center; display: none;">
-                        <h3>Thank you for your submission, please check your email for the results!</h3>
+                        <h3>Thank you for your submission, if you receive a confirmation email then you have completed this task. Otherwise try again or contact the certification instructor.</h3>
                     </div>
                     <div id="task_interface">
                         <!-- <h4>Task: Recreating a Dataflow</h4> -->
@@ -103,7 +136,7 @@
                                 <a href="#step-1-panel" class="mdl-tabs__tab">Step 1</a>
                                 <a href="#step-2-panel" class="mdl-tabs__tab">Step 2</a>
                                 <a href="#step-3-panel" class="mdl-tabs__tab">Step 3</a>
-                                <a href="#submission-panel" class="mdl-tabs__tab">Submit Task</a>
+                                <a href="#submission-panel" class="mdl-tabs__tab">Submit</a>
                             </div>
                             <div class="mdl-tabs__panel is-active" id="instruction-panel">
                                 <!-- Instructions -->
@@ -136,10 +169,7 @@
                                 <h4>Step 2: Add a RecordSet and Webhook</h4>
                                 <p>
                                     Now that we have a blank Dataflow created, the first thing to do is add a RecordSet. We also have to attach a Webhook to the RecordSet. If you are comfortable doing these two steps together then do so. Otherwise, after adding the RecordSet, select it
-                                    and in the Builder menu navigate to <span style="font-family: 'Ubuntu Mono', monospace">Data Inputs > Add Webhook</span>.
-                                </p>
-                                <p>
-                                    After the Webhook has been created, click on the object and copy the Webhook URL. You'll need it later on to finish the task.
+                                    and in the Builder menu navigate to <span class="code">Data Inputs > Add Webhook</span>.
                                 </p>
                             </div>
                             <div class="mdl-tabs__panel" id="step-3-panel">
@@ -150,8 +180,7 @@
                                     data to an external source, in this case another Webhook.
                                 </p>
                                 <p>
-                                    After selecting the RecordSet, navigate in the Builder menu to <span style="font-family: 'Ubuntu Mono', monospace">Actions > HTTP POST</span>. You can name the Action anything you like, but use the following chart to
-                                    fill in the other details:
+                                    After selecting the RecordSet, navigate in the Builder menu to <span class="code">Actions > HTTP POST</span>. You can name the Action anything you like, but use the following chart to fill in the other details:
                                     <center>
                                         <table class="mdl-data-table mdl-js-data-table mdl-data-table mdl-shadow--2dp">
                                             <thead>
@@ -178,7 +207,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td>Raw Type</td>
-                                                    <td style="text-align: left">Javascript (application/javascript)</td>
+                                                    <td style="text-align: left">JSON (application/json)</td>
                                                 </tr>
                                                 <tr>
                                                     <td>Body</td>
@@ -194,10 +223,10 @@
                                 <!-- Submission -->
                                 <h4>How to Submit the Task</h4>
                                 <p>
-                                    You've completed your Dataflow and now it's time to use it. Fill in the following fields:
+                                    You've completed your Dataflow and now it's time to use it.</p> First, go back to your Dataflow, select the Webhook, and copy the Webhook URL.</p><p>Now, fill in the following fields:
                                 </p>
                                 <!-- Textfield with Floating Label -->
-                                <form action="#">
+                                <form>
                                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                                         <input class="mdl-textfield__input" type="text" id="submit-url">
                                         <label class="mdl-textfield__label" for="submit-url">Webhook URL</label>
@@ -215,9 +244,8 @@
                                         <label class="mdl-textfield__label" for="email">Email Address</label>
                                     </div><br />
                                     <!-- Accent-colored raised button with ripple -->
-                                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">Test Dataflow & Submit Task</button>
                                 </form>
-
+                                <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" id="submit-task">Test Dataflow & Submit Task</button>
                             </div>
                         </div>
                         <!-- End of Content -->

@@ -85,16 +85,35 @@
             padding: 10px;
             font-size: 125%;
             background-color: #89bd48;
+            color: #FFF;
         }
 
         .inputfile+label {
             cursor: pointer;
+            color: #FFF;
             /* "hand" cursor */
         }
 
         .submit_task+label {
             cursor: pointer;
+            color: #FFF;
             /* "hand" cursor */
+        }
+
+        .mdl-tabs.is-upgraded .mdl-tabs__tab.is-active:after {
+            background: rgb(123, 170, 64) !important;
+        }
+
+        .demo-list-control {
+            width: 300px;
+        }
+
+        .demo-list-radio {
+            display: inline;
+        }
+        .mdl-list__item {
+           padding: 5px;
+           min-height: 40px;
         }
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -114,7 +133,7 @@
                     xhr.setRequestHeader('Content-Type', 'application/json');
                     xhr.send(JSON.stringify(payload));
 
-                    $("#task_submitted").css("display","initial");
+                    $("#task_submitted").css("display", "initial");
                     $("#task_interface").slideUp();
                 } else {
                     alert("The Dataflow was unable to be submitted. Please reload the page and try again.");
@@ -148,19 +167,20 @@
                 <div class="demo-content mdl-color--white mdl-shadow--4dp content mdl-color-text--grey-800 mdl-cell mdl-cell--8-col">
                     <!-- Beginning of Content -->
                     <div id="task_submitted" style="text-align: center; display: none;">
-                       <h3>Thank you for your submission, please check your email for the results!</h3>
+                        <h3>Thank you for your submission, please check your email for the results!</h3>
                     </div>
                     <div id="task_interface">
                         <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
                             <div class="mdl-tabs__tab-bar">
                                 <a href="#instruction-panel" class="mdl-tabs__tab is-active">Instructions</a>
                                 <a href="#solution-panel" class="mdl-tabs__tab">Dataflow Model</a>
-                                <a href="#submission-panel" class="mdl-tabs__tab">Submit Task</a>
+                                <a href="#submission-panel" class="mdl-tabs__tab">Submit</a>
                             </div>
                             <div class="mdl-tabs__panel is-active" id="instruction-panel">
                                 <!-- Instructions -->
                                 <h4>What Do I Do?</h4>
-                                <p>In this certification task you will be required to create a matching Dataflow. Begin by analyzing the <strong>Dataflow Model</strong> then continue by creating your own identical Dataflow. Upon completion, export the Dataflow. Next, in the <strong>Submit Task</strong> tab follow the instructions to upload your submission for review.</p>
+                                <p>In this certification task you will be required to create a matching Dataflow. Begin by analyzing the <strong>Dataflow Model</strong> then continue by creating your own identical Dataflow. Upon completion, export the Dataflow.
+                                    Next, in the <strong>Submit Task</strong> tab follow the instructions to upload your submission for review.</p>
                                 <p>After submitting your Dataflow, check your email for the results. Any mistakes will be noted in the result email. When the task is successfully completed your certification progress will be updated.</p>
                                 <p>The following requirements must be met:
                                     <ul>
@@ -171,6 +191,59 @@
                                         <li>RecordSets are linked correctly</li>
                                     </ul>
                                 </p>
+                                <!-- List with avatar and controls -->
+                                <ul class="demo-list-control mdl-list">
+                                    <li class="mdl-list__item">
+                                        <span class="mdl-list__item-primary-content">
+      Bryan Cranston
+    </span>
+                                        <span class="mdl-list__item-secondary-action">
+      <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="list-checkbox-1">
+        <input type="checkbox" id="list-checkbox-1" class="mdl-checkbox__input" />
+      </label>
+    </span>
+                                    </li>
+                                    <li class="mdl-list__item">
+                                        <span class="mdl-list__item-primary-content">
+      Aaron Paul
+    </span>
+                                        <span class="mdl-list__item-secondary-action">
+      <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="list-checkbox-2">
+        <input type="checkbox" id="list-checkbox-2" class="mdl-checkbox__input" />
+      </label>
+    </span>
+                                    </li>
+                                    <li class="mdl-list__item">
+                                        <span class="mdl-list__item-primary-content">
+      Bob Odenkirk
+    </span>
+                                        <span class="mdl-list__item-secondary-action">
+      <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="list-checkbox-3">
+        <input type="checkbox" id="list-checkbox-3" class="mdl-checkbox__input" />
+      </label>
+    </span>
+                                    </li>
+                                    <li class="mdl-list__item">
+                                        <span class="mdl-list__item-primary-content">
+      Bob Odenkirk
+    </span>
+                                        <span class="mdl-list__item-secondary-action">
+      <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="list-checkbox-4">
+        <input type="checkbox" id="list-checkbox-4" class="mdl-checkbox__input" />
+      </label>
+    </span>
+                                    </li>
+                                    <li class="mdl-list__item">
+                                        <span class="mdl-list__item-primary-content">
+      Bob Odenkirk
+    </span>
+                                        <span class="mdl-list__item-secondary-action">
+      <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="list-checkbox-5">
+        <input type="checkbox" id="list-checkbox-5" class="mdl-checkbox__input" />
+      </label>
+    </span>
+                                    </li>
+                                </ul>
                             </div>
                             <div class="mdl-tabs__panel" id="solution-panel">
                                 <!-- Solution Image -->
