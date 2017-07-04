@@ -97,11 +97,128 @@
             margin-left: 20px;
             margin-top: -15px;
         }
+
+        #sample_record {
+            font-family: 'Ubuntu Mono', 'Monaco', 'Consolas', monospace;
+        }
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script>
         $(document).ready(function() {
-
+            var sample_record = {
+                "id": 2,
+                "parent_record_id": 0,
+                "parent_page_id": 0,
+                "parent_element_id": 0,
+                "created_date": "2017-07-01T15:42:50+00:00",
+                "created_by": "jhsu_qatest",
+                "created_location": "38.957350:-77.414456:74.900002:20.584999:20.584999:0.000000:0.000000:1498938081280.000000",
+                "created_device_id": "357903062464155",
+                "modified_date": "2017-07-01T15:46:14+00:00",
+                "modified_by": "jhsu_qatest",
+                "modified_location": "38.957350:-77.414456:74.900002:20.587000:20.587000:0.000000:0.000000:1498938343424.000000",
+                "modified_device_id": "357903062464155",
+                "server_modified_date": "2017-07-01T15:47:00+00:00",
+                "insured_name": "Jonathan Hsu",
+                "insurance_provider": "Aetna",
+                "property_address": "123 Main Street",
+                "property_city": "Herndon",
+                "property_state": "VA",
+                "property_zip": "22032",
+                "requested_date_of_inspection": null,
+                "confirm_gps_location": "Latitude:38.957350,\nLongitude:-77.414456,\nAltitude:74.900002,\nSpeed:0.000000,\nAccuracy:20.344000,\nProvider:network,\nTime:07/01/2017 03:39:15 EDT",
+                "elevation": null,
+                "distance_from_coast": null,
+                "inspection_type": "full",
+                "notes_from_homeowner": "Beware of dog",
+                "property_photo": "https://dl.dropbox.com/s/ldaqrpou9wtm3lt/field_10391746515957fc34e5278.jpg?dl=0",
+                "roof_details": [{
+                    "id": 3,
+                    "parent_record_id": 2,
+                    "parent_page_id": 612,
+                    "parent_element_id": 6850,
+                    "created_date": "2017-07-01T15:44:37+00:00",
+                    "created_by": "jhsu_qatest",
+                    "created_location": "38.957350:-77.414456:74.900002:20.584999:20.584999:0.000000:0.000000:1498938081280.000000",
+                    "created_device_id": "357903062464155",
+                    "modified_date": "2017-07-01T15:44:38+00:00",
+                    "modified_by": "jhsu_qatest",
+                    "modified_location": "38.957350:-77.414456:74.900002:20.584999:20.584999:0.000000:0.000000:1498938081280.000000",
+                    "modified_device_id": "357903062464155",
+                    "server_modified_date": "2017-07-01T15:47:09+00:00",
+                    "roof_features": "Gutters,Chimney,Skylights",
+                    "type_of_roof_covoring": "none",
+                    "roof_drainage_system": "yes",
+                    "any_visible_damage_": "no",
+                    "explain_visible_damage": null,
+                    "roof_photo_1": "https://dl.dropbox.com/s/2g6nd2iduw2dwce/field_16756218655957fc3d78fb0.png?dl=0",
+                    "roof_photo_2": null,
+                    "roof_photo_3": null,
+                    "additional_roof_comments": null
+                }],
+                "window_details": [{
+                    "id": 1,
+                    "parent_record_id": 2,
+                    "parent_page_id": 612,
+                    "parent_element_id": 6853,
+                    "created_date": "2017-07-01T15:45:12+00:00",
+                    "created_by": "jhsu_qatest",
+                    "created_location": "38.957339:-77.414445:74.900002:20.643000:20.643000:0.000000:0.000000:1498938212352.000000",
+                    "created_device_id": "357903062464155",
+                    "modified_date": "2017-07-01T15:45:13+00:00",
+                    "modified_by": "jhsu_qatest",
+                    "modified_location": "38.957339:-77.414445:74.900002:20.643000:20.643000:0.000000:0.000000:1498938212352.000000",
+                    "modified_device_id": "357903062464155",
+                    "server_modified_date": "2017-07-01T15:47:14+00:00",
+                    "number_of_windows_on_property__estimate_": 10,
+                    "locks_functional_on_all_windows_": "yes",
+                    "cracks_on_any_windows_": "no",
+                    "air_drafts_on_any_windows": "yes",
+                    "window_photo_1": "https://dl.dropbox.com/s/3h1boaj30njoxbb/field_5660990045957fc42f1481.png?dl=0",
+                    "window_photo_2": null,
+                    "window_photo_3": null,
+                    "additional_comments": null
+                }],
+                "plumbing_details": [{
+                    "id": 2,
+                    "parent_record_id": 2,
+                    "parent_page_id": 612,
+                    "parent_element_id": 6856,
+                    "created_date": "2017-07-01T15:45:30+00:00",
+                    "created_by": "jhsu_qatest",
+                    "created_location": "38.957350:-77.414456:74.900002:20.475000:20.475000:0.000000:0.000000:1498938343424.000000",
+                    "created_device_id": "357903062464155",
+                    "modified_date": "2017-07-01T15:45:30+00:00",
+                    "modified_by": "jhsu_qatest",
+                    "modified_location": "38.957350:-77.414456:74.900002:20.475000:20.475000:0.000000:0.000000:1498938343424.000000",
+                    "modified_device_id": "357903062464155",
+                    "server_modified_date": "2017-07-01T15:47:17+00:00",
+                    "number_of_sinks_on_property": 4,
+                    "number_of_showers_bathtubs_on_the_property": 2,
+                    "number_of_toilets_on_the_property": 3,
+                    "all_plumbing_appliances_functional_": "yes",
+                    "any_leaks_on_the_property_": "no",
+                    "plumbing_photo_1": null,
+                    "plumbing_photo_2": null,
+                    "plumbing_photo_3": null,
+                    "additional_comments": null
+                }],
+                "additional_property_photos": "0",
+                "additional_notes": null,
+                "property_summary": "Very little damage",
+                "overall_property_condition": "Good",
+                "insp_sig": "https://dl.dropbox.com/s/cf4e5zhemjf7wmt/field_17782047115957fc377ee1c.png?dl=0",
+                "total_cost": "$300",
+                "inspector_email_": "jhsu@zerionsoftware.com",
+                "_id": "5957fc473c37ad8f8ea27498"
+            };
+            $('#sample_record').text(JSON.stringify(sample_record, null, 3));
+            $("#btn_copy_record").click(function() {
+                $("#sample_record").select();
+                document.execCommand("copy");
+                $('#sample_record').blur();
+                $("#copy_record_txt").text("Record Copied to Clipboard");
+            });
         });
     </script>
 </head>
@@ -131,23 +248,12 @@
                                 <ul class="demo-list-control mdl-list">
                                     <li class="mdl-list__item">
                                         <span class="mdl-list__item-secondary-action">
-                                       <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="list-checkbox-1">
-                                         <input type="checkbox" id="list-checkbox-1" class="mdl-checkbox__input" />
-                                       </label>
-                                     </span>
-                                        <span class="mdl-list__item-primary-content">
-                                      Remove the following properties only from the parent record: parent_record_id, parent_form_id, parent_element_id
-                                    </span>
-
-                                    </li>
-                                    <li class="mdl-list__item">
-                                        <span class="mdl-list__item-secondary-action">
                                        <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="list-checkbox-2">
                                          <input type="checkbox" id="list-checkbox-2" class="mdl-checkbox__input" />
                                        </label>
                                      </span>
                                         <span class="mdl-list__item-primary-content">
-                                      Send an email to your project manager (jhsu@zerionsoftware.com) if the total inspection cost is greater than $350.00
+                                      If the total inspection cost is greater than $350.00, send an email to jhsu@zerionsoftware.com
                                     </span>
                                     </li>
                                     <li class="mdl-list__item">
@@ -157,7 +263,7 @@
                                         </label>
                                      </span>
                                         <span class="mdl-list__item-primary-content">
-                                      Remove any null subform photos
+                                      Remove any subform photos elements with a value of null
                                    </span>
                                     </li>
                                     <li class="mdl-list__item">
@@ -177,7 +283,7 @@
                                         </label>
                                      </span>
                                         <span class="mdl-list__item-primary-content">
-                                      Do not store any inspection records without a signature
+                                      Do not store any inspection records that are missing a signature
                                    </span>
                                     </li>
                                     <li class="mdl-list__item">
@@ -190,119 +296,25 @@
                                       Remove the Plumbing Details subform record for inspections done in Maryland
                                    </span>
                                     </li>
+                                    <li class="mdl-list__item">
+                                        <span class="mdl-list__item-secondary-action">
+                                       <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="list-checkbox-1">
+                                         <input type="checkbox" id="list-checkbox-1" class="mdl-checkbox__input" />
+                                       </label>
+                                     </span>
+                                        <span class="mdl-list__item-primary-content">
+                                      Remove these properties from the parent level: parent_record_id, parent_form_id, parent_element_id
+                                    </span>
+                                    </li>
                                 </ul>
                             </div>
                             <div class="mdl-tabs__panel" id="record-panel">
                                 <h4>Sample Record</h4>
-                                <div style="overflow: scroll; height: 400px; border: 1px solid #CCC;" id="sample_record">
-                                    <pre><code>{
-   "id": 2,
-   "parent_record_id": 0,
-   "parent_page_id": 0,
-   "parent_element_id": 0,
-   "created_date": "2017-07-01T15:42:50+00:00",
-   "created_by": "jhsu_qatest",
-   "created_location": "38.957350:-77.414456:74.900002:20.584999:20.584999:0.000000:0.000000:1498938081280.000000",
-   "created_device_id": "357903062464155",
-   "modified_date": "2017-07-01T15:46:14+00:00",
-   "modified_by": "jhsu_qatest",
-   "modified_location": "38.957350:-77.414456:74.900002:20.587000:20.587000:0.000000:0.000000:1498938343424.000000",
-   "modified_device_id": "357903062464155",
-   "server_modified_date": "2017-07-01T15:47:00+00:00",
-   "insured_name": "Jonathan Hsu",
-   "insurance_provider": "Aetna",
-   "property_address": "123 Main Street",
-   "property_city": "Herndon",
-   "property_state": "VA",
-   "property_zip": "22032",
-   "requested_date_of_inspection": null,
-   "confirm_gps_location": "Latitude:38.957350,\nLongitude:-77.414456,\nAltitude:74.900002,\nSpeed:0.000000,\nAccuracy:20.344000,\nProvider:network,\nTime:07/01/2017 03:39:15 EDT",
-   "elevation": null,
-   "distance_from_coast": null,
-   "inspection_type": "full",
-   "notes_from_homeowner": "Beware of dog",
-   "property_photo": "https://dl.dropbox.com/s/ldaqrpou9wtm3lt/field_10391746515957fc34e5278.jpg?dl=0",
-   "roof_details": [{
-       "id": 3,
-       "parent_record_id": 2,
-       "parent_page_id": 612,
-       "parent_element_id": 6850,
-       "created_date": "2017-07-01T15:44:37+00:00",
-       "created_by": "jhsu_qatest",
-       "created_location": "38.957350:-77.414456:74.900002:20.584999:20.584999:0.000000:0.000000:1498938081280.000000",
-       "created_device_id": "357903062464155",
-       "modified_date": "2017-07-01T15:44:38+00:00",
-       "modified_by": "jhsu_qatest",
-       "modified_location": "38.957350:-77.414456:74.900002:20.584999:20.584999:0.000000:0.000000:1498938081280.000000",
-       "modified_device_id": "357903062464155",
-       "server_modified_date": "2017-07-01T15:47:09+00:00",
-       "roof_features": "Gutters,Chimney,Skylights",
-       "type_of_roof_covoring": "none",
-       "roof_drainage_system": "yes",
-       "any_visible_damage_": "no",
-       "explain_visible_damage": null,
-       "roof_photo_1": "https://dl.dropbox.com/s/2g6nd2iduw2dwce/field_16756218655957fc3d78fb0.png?dl=0",
-       "roof_photo_2": null,
-       "roof_photo_3": null,
-       "additional_roof_comments": null
-   }],
-   "window_details": [{
-       "id": 1,
-       "parent_record_id": 2,
-       "parent_page_id": 612,
-       "parent_element_id": 6853,
-       "created_date": "2017-07-01T15:45:12+00:00",
-       "created_by": "jhsu_qatest",
-       "created_location": "38.957339:-77.414445:74.900002:20.643000:20.643000:0.000000:0.000000:1498938212352.000000",
-       "created_device_id": "357903062464155",
-       "modified_date": "2017-07-01T15:45:13+00:00",
-       "modified_by": "jhsu_qatest",
-       "modified_location": "38.957339:-77.414445:74.900002:20.643000:20.643000:0.000000:0.000000:1498938212352.000000",
-       "modified_device_id": "357903062464155",
-       "server_modified_date": "2017-07-01T15:47:14+00:00",
-       "number_of_windows_on_property__estimate_": 10,
-       "locks_functional_on_all_windows_": "yes",
-       "cracks_on_any_windows_": "no",
-       "air_drafts_on_any_windows": "yes",
-       "window_photo_1": "https://dl.dropbox.com/s/3h1boaj30njoxbb/field_5660990045957fc42f1481.png?dl=0",
-       "window_photo_2": null,
-       "window_photo_3": null,
-       "additional_comments": null
-   }],
-   "plumbing_details": [{
-       "id": 2,
-       "parent_record_id": 2,
-       "parent_page_id": 612,
-       "parent_element_id": 6856,
-       "created_date": "2017-07-01T15:45:30+00:00",
-       "created_by": "jhsu_qatest",
-       "created_location": "38.957350:-77.414456:74.900002:20.475000:20.475000:0.000000:0.000000:1498938343424.000000",
-       "created_device_id": "357903062464155",
-       "modified_date": "2017-07-01T15:45:30+00:00",
-       "modified_by": "jhsu_qatest",
-       "modified_location": "38.957350:-77.414456:74.900002:20.475000:20.475000:0.000000:0.000000:1498938343424.000000",
-       "modified_device_id": "357903062464155",
-       "server_modified_date": "2017-07-01T15:47:17+00:00",
-       "number_of_sinks_on_property": 4,
-       "number_of_showers_bathtubs_on_the_property": 2,
-       "number_of_toilets_on_the_property": 3,
-       "all_plumbing_appliances_functional_": "yes",
-       "any_leaks_on_the_property_": "no",
-       "plumbing_photo_1": null,
-       "plumbing_photo_2": null,
-       "plumbing_photo_3": null,
-       "additional_comments": null
-   }],
-   "additional_property_photos": "0",
-   "additional_notes": null,
-   "property_summary": "Very little damage",
-   "overall_property_condition": "Good",
-   "insp_sig": "https://dl.dropbox.com/s/cf4e5zhemjf7wmt/field_17782047115957fc377ee1c.png?dl=0",
-   "total_cost": "$300",
-   "inspector_email_": "jhsu@zerionsoftware.com",
-   "_id": "5957fc473c37ad8f8ea27498"
-}</code></pre>
-                                </div>
+                                <p>Use the sample record below when working in the Data Refinery. Click the button below to copy the record's text to your clipboard.</p>
+                                <div><textarea style="overflow: scroll; height: 300px; width: 100%; border: 1px solid #CCC;" id="sample_record" readonly></textarea></div>
+                                <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" style="background-color: #89bd48;" id="btn_copy_record">
+<span id="copy_record_txt">Copy Sample Record</span> <i class="material-icons">assignment</i>
+</button>
                             </div>
                             <div class="mdl-tabs__panel" id="submission-panel">
                                 <h4>How to Submit the Assignment</h4>
@@ -310,8 +322,8 @@
                                 <ul class="demo-list-control mdl-list">
                                     <li class="mdl-list__item">
                                         <span class="mdl-list__item-secondary-action">
-                                       <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="list-checkbox-1">
-                                         <input type="checkbox" id="list-checkbox-1" class="mdl-checkbox__input" />
+                                       <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="submit-checkbox-1">
+                                         <input type="checkbox" id="submit-checkbox-1" class="mdl-checkbox__input" />
                                        </label>
                                      </span>
                                         <span class="mdl-list__item-primary-content">
@@ -320,12 +332,12 @@
                                     </li>
                                     <li class="mdl-list__item">
                                         <span class="mdl-list__item-secondary-action">
-                                       <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="list-checkbox-2">
-                                         <input type="checkbox" id="list-checkbox-2" class="mdl-checkbox__input" />
+                                       <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="submit-checkbox-2">
+                                         <input type="checkbox" id="submit-checkbox-2" class="mdl-checkbox__input" />
                                        </label>
                                      </span>
                                         <span class="mdl-list__item-primary-content">
-                                      Share the Dataflow with the user jhsu_qatest
+                                      Share the Dataflow with the user&nbsp;<strong>jhsu_qatest</strong>
                                     </span>
                                     </li>
                                 </ul>
@@ -341,8 +353,8 @@
                                         <label class="mdl-textfield__label" for="your-email">Your Email Address</label>
                                     </div>
                                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                      <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="number-records">
-                                      <label class="mdl-textfield__label" for="Number Records">Number of Records</label>
+                                        <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="number-records">
+                                        <label class="mdl-textfield__label" for="Number Records">Number of Records</label>
                                     </div>
                                     <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" style="background-color: #89bd48;" id="btn_send_record">
   <span id="send_record">Send Randomized Sample Records</span> <i class="material-icons">send</i>
