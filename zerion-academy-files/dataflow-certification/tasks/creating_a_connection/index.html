@@ -16,7 +16,8 @@
   limitations under the License
 -->
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="A front-end template that helps you build fast, modern mobile web apps.">
@@ -49,69 +50,138 @@
     <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.teal-red.min.css">
     <link rel="stylesheet" href="styles.css">
     <style>
-    #view-source {
-      position: fixed;
-      display: block;
-      right: 0;
-      bottom: 0;
-      margin-right: 40px;
-      margin-bottom: 40px;
-      z-index: 900;
-    }
-    .demo-ribbon {
-       background-color: #89bd48;
-       !important;
-   }
-   .mdl-tabs.is-upgraded .mdl-tabs__tab.is-active:after {
-       background: rgb(123, 170, 64) !important;
-   }
+        #view-source {
+            position: fixed;
+            display: block;
+            right: 0;
+            bottom: 0;
+            margin-right: 40px;
+            margin-bottom: 40px;
+            z-index: 900;
+        }
+
+        .demo-ribbon {
+            background-color: #89bd48;
+            !important;
+        }
+
+        .mdl-tabs.is-upgraded .mdl-tabs__tab.is-active:after {
+            background: rgb(123, 170, 64) !important;
+        }
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  </head>
-  <body>
+    <script>
+        $(document).ready(function() {
+            $('#submit-task').click(function() {
+                var webhook = "https://qa-dataflownode.zerionsoftware.com/domain/qatest/services/webhooks/6673328c7cde826f403c7703f568e997786c22f4-54d50a52bcf5fe990487eb717f0aa284fd71c150";
+                var submission = {};
+                submission.email = $('#email-address').val();
+                submission.connection = $('#connection-name').val();
+
+                try {
+                    var xhr = new XMLHttpRequest();
+                    xhr.open("POST", webhook, true);
+                    xhr.setRequestHeader('Content-Type', 'application/json');
+                    xhr.send(JSON.stringify(submission));
+                    $("#task_submitted").css("display", "initial");
+                    $("#task_interface").slideUp();
+                } catch (e) {
+
+                }
+            });
+        });
+    </script>
+</head>
+
+<body>
     <div class="demo-layout mdl-layout mdl-layout--fixed-header mdl-js-layout mdl-color--grey-100">
-      <div class="demo-ribbon"></div>
-      <main class="demo-main mdl-layout__content">
-        <div class="demo-container mdl-grid">
-          <div class="mdl-cell mdl-cell--2-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
-          <div class="demo-content mdl-color--white mdl-shadow--4dp content mdl-color-text--grey-800 mdl-cell mdl-cell--8-col">
-             <!-- Beginning of Content -->
-             <div id="task_interface">
-                 <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
-                     <div class="mdl-tabs__tab-bar">
-                        <a href="#instruction-panel" class="mdl-tabs__tab is-active">Instructions</a>
-                        <a href="#connection-panel" class="mdl-tabs__tab">Step 1</a>
-                        <a href="#dataflow-panel" class="mdl-tabs__tab">Step 2</a>
-                        <a href="#email-panel" class="mdl-tabs__tab">Step 3</a>
-                        <a href="#submission-panel" class="mdl-tabs__tab">Submit</a>
-                     </div>
-                     <div class="mdl-tabs__panel is-active" id="instruction-panel">
-                        <!-- Instructions -->
-                        <h4>What Do I Do?</h4>
-                        <p>asdf</p>
-                        <h4>Requirements</h4>
-                        <ul>
-                           <li>asdf</li>
-                        </ul>
-                     </div>
-                     <div class="mdl-tabs__panel" id="connection-panel">
-                        <h4>Step 1: Creating a Connection</h4>
-                     </div>
-                     <div class="mdl-tabs__panel" id="dataflow-panel">
-                        <h4>Step 2: Setting Up the Dataflow</h4>
-                     </div>
-                     <div class="mdl-tabs__panel" id="email-panel">
-                        <h4>Step 3: Configuring the Email Action</h4>
-                     </div>
-                     <div class="mdl-tabs__panel" id="submission-panel">
-                        <h4>How to Submit the Task</h4>
-                     </div>
-                 </div>
-                 <!-- End of Content -->
-          </div>
+        <div class="demo-ribbon"></div>
+        <main class="demo-main mdl-layout__content">
+            <div class="demo-container mdl-grid">
+                <div class="mdl-cell mdl-cell--2-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
+                <div class="demo-content mdl-color--white mdl-shadow--4dp content mdl-color-text--grey-800 mdl-cell mdl-cell--8-col">
+                    <!-- Beginning of Content -->
+                    <div id="task_submitted" style="text-align: center; display: none;">
+                       <h3>Thank you for your submission, We'll verify your Connection and mark the task complete as soon as possible.</h3>
+                    </div>
+                    <div id="task_interface">
+                        <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+                            <div class="mdl-tabs__tab-bar">
+                                <a href="#instruction-panel" class="mdl-tabs__tab is-active">Instructions</a>
+                                <a href="#creating-panel" class="mdl-tabs__tab">Step 1</a>
+                                <a href="#sharing-panel" class="mdl-tabs__tab">Step 2</a>
+                                <a href="#submission-panel" class="mdl-tabs__tab">Submit</a>
+                            </div>
+                            <div class="mdl-tabs__panel is-active" id="instruction-panel">
+                                <!-- Instructions -->
+                                <h4>What Do I Do?</h4>
+                                <p>The purpose of this task is to guide you through the process of creating and sharing a Connection. In this task, you will create a Connection using the credentials for your email address. We'll use the Connection later
+                                    in the certification, but for now you only need to create and share it then submit your task.</p>
+                                <p>Let's get on with the task and move to Step 1: Creating the Connection</p>
+                            </div>
+                            <div class="mdl-tabs__panel" id="creating-panel">
+                                <h4>Step 1: Creating a Connection</h4>
+                                <p>Navigate to the Connections section by clicking on the left-hand menu.</p>
+                                <p>From here, a table of made Connections is shown. However, we're going to create a new Connection. Click New Connection in the Builder menu. In the name or description of your Connection, be sure to include your username.</p>
+                                <p>Next, use the following details to complete the Connection:</p>
+                                <center>
+                                    <table class="mdl-data-table mdl-js-data-table mdl-data-table mdl-shadow--2dp">
+                                        <thead>
+                                            <tr>
+                                                <th>Property</th>
+                                                <th style="text-align: left">Value</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Type</td>
+                                                <td style="text-align: left">
+                                                    Email
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Host</td>
+                                                <td style="text-align: left">smtp.gmail.com</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Port</td>
+                                                <td style="text-align: left">587</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Using SSL (Secure)</td>
+                                                <td style="text-align: left">yes</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </center>
+                            </div>
+                            <div class="mdl-tabs__panel" id="sharing-panel">
+                                <h4>Step 2: Sharing the Connection</h4>
+                                <p>If you haven't finished creating the Connection, click the Share Connection tab. If you've made the Connection already, click the edit icon and then the Share Connection tab.</p>
+                                <p>Find the user <strong>jhsu_qatest</strong>, check the checkbox, and click Save.</p>
+                            </div>
+                            <div class="mdl-tabs__panel" id="submission-panel">
+                                <h4>How to Submit the Task</h4>
+                                <p>After you've created and shared the Dataflow, we'll have access to use it. But, we won't be notified. To do so, fill out the form below and we'll notify you once the Connection has been confirmed.</p>
+                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                    <input class="mdl-textfield__input" type="text" id="email-address">
+                                    <label class="mdl-textfield__label" for="email-address">Email Address</label>
+                                </div>
+                                <br />
+                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                    <input class="mdl-textfield__input" type="text" id="connection-name">
+                                    <label class="mdl-textfield__label" for="connection-name">Connection Name</label>
+                                </div>
+                                <br />
+                                <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" id="submit-task">Notify Us Of Task Submission</button>
+                            </div>
+                        </div>
+                        <!-- End of Content -->
+                    </div>
+                </div>
+        </main>
         </div>
-      </main>
-    </div>
-    <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
-  </body>
+        <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+</body>
+
 </html>
