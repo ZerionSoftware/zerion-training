@@ -22,7 +22,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="A front-end template that helps you build fast, modern mobile web apps.">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-    <title>Material Design Lite</title>
+    <title>Dataflow Automation Certification Assignment 1</title>
 
     <!-- Add to homescreen for Chrome on Android -->
     <meta name="mobile-web-app-capable" content="yes">
@@ -106,6 +106,7 @@
     <script src="records.js"></script>
     <script>
         $(document).ready(function() {
+            $('#sample_record').text(JSON.stringify(sample_records[0], null, 3));
             $("#btn_copy_record").click(function() {
                 $("#sample_record").select();
                 document.execCommand("copy");
@@ -114,25 +115,29 @@
             });
 
             $('#btn_send_record').click(function() {
-               var num_records = (Math.abs(Number($('#number-records').val())) > 10) ? 10 : Math.abs(Number($('#number-records').val()));
-               var records_to_send = [];
-               var record_indexes = [];
-               for(var i=0; i < num_records; i++) {
-                  while(true) {
-                     var index = Math.floor(Math.random() * (sample_records.length - 0) + 0);
-                     if(record_indexes.length === 0 || record_indexes.indexOf(index) === -1) {
-                        record_indexes.push(index);
-                        sample_records[index]['inspector_email_'] = $('#your-email').val();
-                        records_to_send.push(sample_records[index]);
-                        break;
-                     }
-                  }
-               }
-               var xhr = new XMLHttpRequest();
-               xhr.open("POST", $('#webhook-url').val(), true);
-               xhr.setRequestHeader('Content-Type', 'application/json');
-               xhr.send(JSON.stringify(records_to_send));
-
+                var num_records = (Math.abs(Number($('#number-records').val())) > 10) ? 10 : Math.abs(Number($('#number-records').val()));
+                var records_to_send = [];
+                var record_indexes = [];
+                for (var i = 0; i < num_records; i++) {
+                    while (true) {
+                        var index = Math.floor(Math.random() * (sample_records.length - 0) + 0);
+                        if (record_indexes.length === 0 || record_indexes.indexOf(index) === -1) {
+                            record_indexes.push(index);
+                            sample_records[index]['inspector_email_'] = $('#your-email').val();
+                            records_to_send.push(sample_records[index]);
+                            break;
+                        }
+                    }
+                }
+                try {
+                    var xhr = new XMLHttpRequest();
+                    xhr.open("POST", $('#webhook-url').val(), true);
+                    xhr.setRequestHeader('Content-Type', 'application/json');
+                    xhr.send(JSON.stringify(records_to_send));
+                    $('#btn_send_record').text("Records Sent to Webhook");
+                } catch(e) {
+                   $('#btn_send_record').text("Error Sending Records");
+                }
             });
         });
     </script>
@@ -232,6 +237,25 @@
 </button>
                             </div>
                             <div class="mdl-tabs__panel" id="submission-panel">
+                                <h4>Test Your Dataflow</h4>
+                                <p>In order to test your Dataflow, use the form below to send a randomized sample record to your Dataflow.</p>
+                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                    <input class="mdl-textfield__input" type="text" id="webhook-url">
+                                    <label class="mdl-textfield__label" for="webhook-url">Webhook URL</label>
+                                </div>
+                                <br />
+                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                    <input class="mdl-textfield__input" type="text" id="your-email">
+                                    <label class="mdl-textfield__label" for="your-email">Your Email Address</label>
+                                </div>
+                                <br />
+                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                    <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="number-records">
+                                    <label class="mdl-textfield__label" for="Number Records">Number of Records</label>
+                                </div><br />
+                                <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" style="background-color: #89bd48;" id="btn_send_record">
+                               <span id="send_record">Send Randomized Sample Records</span> <i class="material-icons">send</i>
+                               </button>
                                 <h4>How to Submit the Assignment</h4>
                                 <p>The assignment </p>
                                 <ul class="demo-list-control mdl-list">
@@ -256,23 +280,7 @@
                                     </span>
                                     </li>
                                 </ul>
-                                <h4>Test Your Dataflow</h4>
-                                <p>In order to test your Dataflow, use the form below to send a randomized sample record to your Dataflow.</p>
-                                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                        <input class="mdl-textfield__input" type="text" id="webhook-url">
-                                        <label class="mdl-textfield__label" for="webhook-url">Webhook URL</label>
-                                    </div>
-                                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                        <input class="mdl-textfield__input" type="text" id="your-email">
-                                        <label class="mdl-textfield__label" for="your-email">Your Email Address</label>
-                                    </div>
-                                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                        <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="number-records">
-                                        <label class="mdl-textfield__label" for="Number Records">Number of Records</label>
-                                    </div>
-                                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" style="background-color: #89bd48;" id="btn_send_record">
-  <span id="send_record">Send Randomized Sample Records</span> <i class="material-icons">send</i>
-</button>
+
                             </div>
                         </div>
                         <!-- End of Content -->
