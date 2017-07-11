@@ -101,11 +101,78 @@
             margin-left: 20px;
             margin-top: -15px;
         }
+        textarea#dataflow_file {
+            font-family: monospace;
+            margin-top: 1em;
+            min-width: 100%;
+            min-height: 300px;
+        }
+        .inputfile {
+            width: 0.1px;
+            height: 0.1px;
+            opacity: 0;
+            overflow: hidden;
+            position: absolute;
+            z-index: -1;
+        }
+
+        label.submit_task {
+            padding: 10px;
+            font-size: 125%;
+            background-color: #89bd48;
+            color: #FFF;
+        }
+
+        .inputfile+label {
+            cursor: pointer;
+            color: #FFF;
+            /* "hand" cursor */
+        }
+
+        .submit_task+label {
+            cursor: pointer;
+            color: #FFF;
+            /* "hand" cursor */
+        }
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script>
         $(document).ready(function() {
-            // jquery goes here
+           $("#file").change(function() {
+               var x = document.getElementById("file").files;
+               var fr = new FileReader();
+               fr.onload = function(e) {
+                   try {
+                       var result = JSON.parse(e.target.result);
+                       var formatted = JSON.stringify(result, null, 2);
+                       document.getElementById("dataflow_file").value = formatted;
+                   } catch (err) {
+                       document.getElementById("dataflow_file").value = "Not a valid JSON file";
+                   }
+               }
+               fr.readAsText(x.item(0));
+           });
+
+           $("#submit").click(function() {
+               var json_valid = true;
+               try {
+                   var payload = JSON.parse($("#dataflow_file").val());
+               } catch (e) {
+                   json_valid = false;
+               }
+
+               if (json_valid === true) {
+                   var xhr = new XMLHttpRequest();
+                   xhr.open("POST", "https://qa-dataflownode.zerionsoftware.com/domain/qatest/services/webhooks/50597261fc6117a8e7b4c857f2b49ecb7109a497-8f31b3fcd218b387ec49338fc4d741d7dddb7b48", true);
+                   xhr.setRequestHeader('Content-Type', 'application/json');
+                   xhr.send(JSON.stringify(payload));
+
+                   $("#task_submitted").css("display", "initial");
+                   $("#task_interface").slideUp();
+               } else {
+                   alert("The Dataflow was unable to be submitted. Please reload the page and try again.");
+               }
+           });
         });
     </script>
 </head>
@@ -131,12 +198,59 @@
                             <div class="mdl-tabs__panel is-active" id="instruction-panel">
                                 <!-- Instructions -->
                                 <h4>What Do I Do?</h4>
+                                <p>The purpose of this task is to update an existing Dataflow to include a catch-all Event Object for Action failures. This is an effective strategy to be notified when an Action fails inside a Dataflow. See the below requirements
+                                    to complete the task:</p>
+                                <ul class="demo-list-control mdl-list">
+                                    <li class="mdl-list__item">
+                                        <span class="mdl-list__item-secondary-action">
+                                       <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="list-checkbox-1">
+                                         <input type="checkbox" id="list-checkbox-1" class="mdl-checkbox__input" />
+                                       </label>
+                                    </span>
+                                        <span class="mdl-list__item-primary-content">
+                                     Dataflow has exactly one Event
+                                  </span>
+                                    </li>
+                                    <li class="mdl-list__item">
+                                        <span class="mdl-list__item-secondary-action">
+                                       <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="list-checkbox-2">
+                                         <input type="checkbox" id="list-checkbox-2" class="mdl-checkbox__input" />
+                                       </label>
+                                    </span>
+                                        <span class="mdl-list__item-primary-content">
+                                     Event is bound to every Action Object in Dataflow as the Fail Event
+                                  </span>
+                                    </li>
+                                    <li class="mdl-list__item">
+                                        <span class="mdl-list__item-secondary-action">
+                                       <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="list-checkbox-3">
+                                         <input type="checkbox" id="list-checkbox-3" class="mdl-checkbox__input" />
+                                       </label>
+                                    </span>
+                                        <span class="mdl-list__item-primary-content">
+                                     Event is not bound to the Success Event
+                                  </span>
+                                    </li>
+                                </ul>
                             </div>
                             <div class="mdl-tabs__panel" id="title-panel">
                                 <h4>Title</h4>
+                                <form action="DFA_CERT_Task7.json" method="get">
+                                   <button type="submit">Download</button>
+                                </form>
                             </div>
                             <div class="mdl-tabs__panel" id="submission-panel">
                                 <h4>How to Submit</h4>
+                                <p>
+                                    <textarea id="dataflow_file" readonly="readonly"></textarea>
+                                </p>
+                                <div style="float: left;">
+                                    <input type="file" name="file" id="file" class="inputfile" />
+                                    <label for="file" class="submit_task">Import a Dataflow</label>
+                                </div>
+                                <div style="float: right">
+                                    <label class="submit_task" id="submit">Submit Dataflow for Review</label>
+                                </div>
                             </div>
                         </div>
                         <!-- End of Content -->
@@ -144,7 +258,6 @@
                 </div>
         </main>
         </div>
-        <a href="https://github.com/google/material-design-lite/blob/mdl-1.x/templates/article/" target="_blank" id="view-source" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--accent mdl-color-text--accent-contrast">View Source</a>
         <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
 </body>
 
