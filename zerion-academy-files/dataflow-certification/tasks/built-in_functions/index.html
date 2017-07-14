@@ -103,13 +103,34 @@
         }
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="Dataflow_Cert_Task_8.js"></script>
     <script>
         $(document).ready(function() {
-            // jquery
+            var saveData = (function() {
+                var a = document.createElement("a");
+                document.body.appendChild(a);
+                a.style = "display: none";
+                return function(data, fileName) {
+                    var json = JSON.stringify(data),
+                        blob = new Blob([json], {
+                            type: "octet/stream"
+                        }),
+                        url = window.URL.createObjectURL(blob);
+                    a.href = url;
+                    a.download = fileName;
+                    a.click();
+                    window.URL.revokeObjectURL(url);
+                };
+            }());
+
+            $('#btn_download_dataflow').click(function() {
+                saveData(data, "Dataflow_Cert_Task_8.json");
+            });
+
             $('#btn_send_record').click(function() {
                 var record = {};
                 record.email = $('#email').val();
-                record.num_records = ($('#number-records').val() > 25) ? 25 : $('#number-records').val();
+                record.num_records = 1;
                 record.webhook = $('#webhook-url').val();
                 record.type = "test";
 
@@ -119,8 +140,30 @@
                     xhr.setRequestHeader('Content-Type', 'application/json');
                     xhr.send(JSON.stringify(record));
                     $('#btn_send_record').text("Request Received");
-                } catch(e) {
-                   $('#btn_send_record').text("Error Sending Records");
+                } catch (e) {
+                    $('#btn_send_record').text("Error Sending Records");
+                }
+            });
+            $('#btn_submit_task').click(function() {
+                if (document.getElementById('shared').checked) {
+                    var submission = {};
+                    submission.first_name = $('#first-name').val();
+                    submission.last_name = $('#last-name').val();
+                    submission.email = $('#submit-email').val();
+                    submission.dataflow_name = $('#dataflow-name').val();
+                    alert(JSON.stringify(submission));
+                    if (submission.first_name.trim().length > 0 && submission.last_name.trim().length > 0 && submission.email.trim().length > 0 && submission.dataflow_name.trim().length > 0) {
+                        try {
+                            var xhr = new XMLHttpRequest();
+                            xhr.open("POST", "https://qa-dataflownode.zerionsoftware.com/domain/qatest/services/webhooks/68b9428da69d6982e09fad37a24074d59d2f6392-cf6012a76d9d46d2f00be7a655a829e50ed93703", true);
+                            xhr.setRequestHeader('Content-Type', 'application/json');
+                            xhr.send(JSON.stringify(submission));
+                            $("#task_submitted").css("display", "initial");
+                            $("#task_interface").slideUp();
+                        } catch (e) {
+                           alert("There was an error sending your submission");
+                        }
+                    }
                 }
             });
         });
@@ -134,6 +177,9 @@
             <div class="demo-container mdl-grid">
                 <div class="mdl-cell mdl-cell--2-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
                 <div class="demo-content mdl-color--white mdl-shadow--4dp content mdl-color-text--grey-800 mdl-cell mdl-cell--8-col">
+                    <div id="task_submitted" style="text-align: center; display: none;">
+                        <h3>Thank you for your submission, We'll verify your Connection and mark the task complete as soon as possible.</h3>
+                    </div>
                     <!-- Beginning of Content -->
                     <div id="task_interface">
                         <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
@@ -188,6 +234,9 @@
                                   </span>
                                     </li>
                                 </ul>
+                                <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" id="btn_download_dataflow">
+  Download Dataflow for Import
+</button>
                             </div>
                             <div class="mdl-tabs__panel" id="test-panel">
                                 <h4>Test Your Dataflow</h4>
@@ -202,18 +251,18 @@
                                     <label class="mdl-textfield__label" for="email">Your Email Address</label>
                                 </div>
                                 <br />
-                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                <!-- <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                                     <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="number-records" max="50">
                                     <label class="mdl-textfield__label" for="Number Records">Number of Records (max 25)</label>
-                                </div><br />
+                                </div><br /> -->
                                 <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" style="background-color: #89bd48;" id="btn_send_record">
-                              Send Randomized Sample Records <i class="material-icons">send</i>
+                              Send Random Sample Record <i class="material-icons">send</i>
                               </button>
                             </div>
                             <div class="mdl-tabs__panel" id="submission-panel">
                                 <h4>How to Submit the Task</h4>
                                 <p>Share your Dataflow with the user '<strong>jhsu_qatest</strong>'. Make sure the Dataflow has sample records that meet the task requirements.</p>
-                                   <p>Afterwards, fill out the form below to send a submission alert.</p>
+                                <p>Afterwards, fill out the form below to send a submission alert.</p>
                                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                                     <input class="mdl-textfield__input" type="text" id="first-name">
                                     <label class="mdl-textfield__label" for="last-name">First Name</label>
@@ -222,6 +271,7 @@
                                     <input class="mdl-textfield__input" type="text" id="last-name">
                                     <label class="mdl-textfield__label" for="last-name">Last Name</label>
                                 </div>
+                                <br />
                                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                                     <input class="mdl-textfield__input" type="text" id="submit-email">
                                     <label class="mdl-textfield__label" for="submit-email">Email Address</label>
@@ -230,6 +280,12 @@
                                     <input class="mdl-textfield__input" type="text" id="dataflow-name">
                                     <label class="mdl-textfield__label" for="dataflow-name">Dataflow Name</label>
                                 </div>
+                                <br />
+                                <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="shared">
+  <input type="checkbox" id="shared" class="mdl-checkbox__input">
+  <span class="mdl-checkbox__label">Dataflow has been shared with <strong>jhsu_qatest</strong></span>
+</label>
+                                <br />
                                 <br /><button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" style="background-color: #89bd48;" id="btn_submit_task">
                               <span>Send Submission Alert</span>
                               </button>
