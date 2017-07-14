@@ -101,12 +101,14 @@
             margin-left: 20px;
             margin-top: -15px;
         }
+
         textarea#dataflow_file {
             font-family: monospace;
             margin-top: 1em;
             min-width: 100%;
             min-height: 300px;
         }
+
         .inputfile {
             width: 0.1px;
             height: 0.1px;
@@ -136,43 +138,46 @@
         }
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="DFA_CERT_Task7.js"></script>
     <script>
         $(document).ready(function() {
-           $("#file").change(function() {
-               var x = document.getElementById("file").files;
-               var fr = new FileReader();
-               fr.onload = function(e) {
-                   try {
-                       var result = JSON.parse(e.target.result);
-                       var formatted = JSON.stringify(result, null, 2);
-                       document.getElementById("dataflow_file").value = formatted;
-                   } catch (err) {
-                       document.getElementById("dataflow_file").value = "Not a valid JSON file";
-                   }
-               }
-               fr.readAsText(x.item(0));
-           });
+            $("#file").change(function() {
+                var x = document.getElementById("file").files;
+                var fr = new FileReader();
+                fr.onload = function(e) {
+                    try {
+                        var result = JSON.parse(e.target.result);
+                        var formatted = JSON.stringify(result, null, 2);
+                        document.getElementById("dataflow_file").value = formatted;
+                    } catch (err) {
+                        document.getElementById("dataflow_file").value = "Not a valid JSON file";
+                    }
+                }
+                fr.readAsText(x.item(0));
+            });
 
-           $("#submit").click(function() {
-               var json_valid = true;
-               try {
-                   var payload = JSON.parse($("#dataflow_file").val());
-               } catch (e) {
-                   json_valid = false;
-               }
+            $("#submit").click(function() {
+                var json_valid = true;
+                try {
+                    var payload = JSON.parse($("#dataflow_file").val());
+                } catch (e) {
+                    json_valid = false;
+                }
 
-               if (json_valid === true) {
-                   var xhr = new XMLHttpRequest();
-                   xhr.open("POST", "https://qa-dataflownode.zerionsoftware.com/domain/qatest/services/webhooks/50597261fc6117a8e7b4c857f2b49ecb7109a497-8f31b3fcd218b387ec49338fc4d741d7dddb7b48", true);
-                   xhr.setRequestHeader('Content-Type', 'application/json');
-                   xhr.send(JSON.stringify(payload));
+                if (json_valid === true) {
+                    var xhr = new XMLHttpRequest();
+                    xhr.open("POST", "https://qa-dataflownode.zerionsoftware.com/domain/qatest/services/webhooks/50597261fc6117a8e7b4c857f2b49ecb7109a497-8f31b3fcd218b387ec49338fc4d741d7dddb7b48", true);
+                    xhr.setRequestHeader('Content-Type', 'application/json');
+                    xhr.send(JSON.stringify(payload));
 
-                   $("#task_submitted").css("display", "initial");
-                   $("#task_interface").slideUp();
-               } else {
-                   alert("The Dataflow was unable to be submitted. Please reload the page and try again.");
-               }
-           });
+                    $("#task_submitted").css("display", "initial");
+                    $("#task_interface").slideUp();
+                } else {
+                    alert("The Dataflow was unable to be submitted. Please reload the page and try again.");
+                }
+            });
+
+            $('#btn-download')
         });
     </script>
 </head>
@@ -192,7 +197,6 @@
                         <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
                             <div class="mdl-tabs__tab-bar">
                                 <a href="#instruction-panel" class="mdl-tabs__tab is-active">Instructions</a>
-                                <a href="#title-panel" class="mdl-tabs__tab">Title</a>
                                 <a href="#submission-panel" class="mdl-tabs__tab">Submit</a>
                             </div>
                             <div class="mdl-tabs__panel is-active" id="instruction-panel">
@@ -228,19 +232,57 @@
                                        </label>
                                     </span>
                                         <span class="mdl-list__item-primary-content">
-                                     Event is not bound to the Success Event
+                                     Event is not bound as a Success Event
+                                  </span>
+                                    </li>
+                                </ul>
+                                <h4>Getting Started</h4>
+                                <ul class="demo-list-control mdl-list">
+                                    <li class="mdl-list__item">
+                                        <span class="mdl-list__item-secondary-action">
+                                       <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="list-checkbox-4">
+                                         <input type="checkbox" id="list-checkbox-4" class="mdl-checkbox__input" />
+                                       </label>
+                                    </span>
+                                        <span class="mdl-list__item-primary-content">
+                                     <a href="">Download and Import the Dataflow</a>
+                                  </span>
+                                    </li>
+                                    <li class="mdl-list__item">
+                                        <span class="mdl-list__item-secondary-action">
+                                       <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="list-checkbox-5">
+                                         <input type="checkbox" id="list-checkbox-5" class="mdl-checkbox__input" />
+                                       </label>
+                                    </span>
+                                        <span class="mdl-list__item-primary-content">
+                                     Add an Event to the Dataflow, remember to start with a RecordSet
+                                  </span>
+                                    </li>
+                                    <li class="mdl-list__item">
+                                        <span class="mdl-list__item-secondary-action">
+                                       <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="list-checkbox-6">
+                                         <input type="checkbox" id="list-checkbox-6" class="mdl-checkbox__input" />
+                                       </label>
+                                    </span>
+                                        <span class="mdl-list__item-primary-content">
+                                     Assign the Event in the Failure section of every Action
+                                  </span>
+                                    </li>
+                                    <li class="mdl-list__item">
+                                        <span class="mdl-list__item-secondary-action">
+                                       <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="list-checkbox-7">
+                                         <input type="checkbox" id="list-checkbox-7" class="mdl-checkbox__input" />
+                                       </label>
+                                    </span>
+                                        <span class="mdl-list__item-primary-content">
+                                     Export the completed Dataflow and submit in the next tab
                                   </span>
                                     </li>
                                 </ul>
                             </div>
-                            <div class="mdl-tabs__panel" id="title-panel">
-                                <h4>Title</h4>
-                                <form action="DFA_CERT_Task7.json" method="get">
-                                   <button type="submit">Download</button>
-                                </form>
-                            </div>
                             <div class="mdl-tabs__panel" id="submission-panel">
                                 <h4>How to Submit</h4>
+                                <p>Import the Dataflow and submit for review. Check your email afterwards for the results.</p>
                                 <p>
                                     <textarea id="dataflow_file" readonly="readonly"></textarea>
                                 </p>
