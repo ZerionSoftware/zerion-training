@@ -138,9 +138,30 @@
         }
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="DFA_CERT_Task7.js"></script>
+    <script src="Dataflow_Certification_Task_6.js"></script>
     <script>
         $(document).ready(function() {
+           var saveData = (function() {
+               var a = document.createElement("a");
+               document.body.appendChild(a);
+               a.style = "display: none";
+               return function(data, fileName) {
+                   var json = JSON.stringify(data),
+                       blob = new Blob([json], {
+                           type: "octet/stream"
+                       }),
+                       url = window.URL.createObjectURL(blob);
+                   a.href = url;
+                   a.download = fileName;
+                   a.click();
+                   window.URL.revokeObjectURL(url);
+               };
+           }());
+
+           $('#download-dataflow').click(function() {
+              saveData(dataflow, "Dataflow_Cert_Task_7.json");
+           });
+
             $("#file").change(function() {
                 var x = document.getElementById("file").files;
                 var fr = new FileReader();
@@ -178,7 +199,9 @@
                 }
             });
 
-            $('#btn-download')
+            $('#download-dataflow').click(function() {
+
+            });
         });
     </script>
 </head>
@@ -240,57 +263,58 @@
                                 </ul>
                             </div>
                             <div class="mdl-tabs__panel" id="started-panel">
-                               <h4>Getting Started</h4>
-                               <ul class="demo-list-control mdl-list">
-                                   <li class="mdl-list__item">
-                                       <span class="mdl-list__item-secondary-action">
+                                <h4>Getting Started</h4>
+                                <div><button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" id="download-dataflow">Download Dataflow</button></div><br />
+                                <ul class="demo-list-control mdl-list">
+                                    <li class="mdl-list__item">
+                                        <span class="mdl-list__item-secondary-action">
                                       <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="list-checkbox-4">
                                         <input type="checkbox" id="list-checkbox-4" class="mdl-checkbox__input" />
                                       </label>
                                    </span>
-                                       <span class="mdl-list__item-primary-content">
-                                    <a href="">Download and Import the Dataflow</a>
+                                        <span class="mdl-list__item-primary-content">
+                                    <a href="">Import the Dataflow</a>
                                  </span>
-                                   </li>
-                                   <li class="mdl-list__item">
-                                       <span class="mdl-list__item-secondary-action">
+                                    </li>
+                                    <li class="mdl-list__item">
+                                        <span class="mdl-list__item-secondary-action">
                                       <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="list-checkbox-5">
                                         <input type="checkbox" id="list-checkbox-5" class="mdl-checkbox__input" />
                                       </label>
                                    </span>
-                                       <span class="mdl-list__item-primary-content">
+                                        <span class="mdl-list__item-primary-content">
                                     Add an Event to the Dataflow, remember to start with a RecordSet
                                  </span>
-                                   </li>
-                                   <li class="mdl-list__item">
-                                       <span class="mdl-list__item-secondary-action">
+                                    </li>
+                                    <li class="mdl-list__item">
+                                        <span class="mdl-list__item-secondary-action">
                                       <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="list-checkbox-6">
                                         <input type="checkbox" id="list-checkbox-6" class="mdl-checkbox__input" />
                                       </label>
                                    </span>
-                                       <span class="mdl-list__item-primary-content">
+                                        <span class="mdl-list__item-primary-content">
                                     Assign the Event in the Failure section of every Action
                                  </span>
-                                   </li>
-                                   <li class="mdl-list__item">
-                                       <span class="mdl-list__item-secondary-action">
+                                    </li>
+                                    <li class="mdl-list__item">
+                                        <span class="mdl-list__item-secondary-action">
                                       <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="list-checkbox-7">
                                         <input type="checkbox" id="list-checkbox-7" class="mdl-checkbox__input" />
                                       </label>
                                    </span>
-                                       <span class="mdl-list__item-primary-content">
+                                        <span class="mdl-list__item-primary-content">
                                     Export the completed Dataflow and submit in the next tab
                                  </span>
-                                   </li>
-                               </ul>
+                                    </li>
+                                </ul>
                             </div>
                             <div class="mdl-tabs__panel" id="submission-panel">
                                 <h4>How to Submit</h4>
                                 <p>Import the Dataflow and submit for review. Check your email afterwards for the results.</p>
                                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-    <input class="mdl-textfield__input" type="text" id="email">
-    <label class="mdl-textfield__label" for="email">Email Address</label>
-  </div>
+                                    <input class="mdl-textfield__input" type="text" id="email">
+                                    <label class="mdl-textfield__label" for="email">Email Address</label>
+                                </div>
                                 <p>
                                     <textarea id="dataflow_file" readonly="readonly"></textarea>
                                 </p>
