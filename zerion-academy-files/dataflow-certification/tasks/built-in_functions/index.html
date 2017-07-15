@@ -128,20 +128,22 @@
             });
 
             $('#btn_send_record').click(function() {
-                var record = {};
-                record.email = $('#email').val();
-                record.num_records = 1;
-                record.webhook = $('#webhook-url').val();
-                record.type = "test";
+                if ($('#email').val().trim() !== "" && $('#webhook-url').val().trim() !== "") {
+                    var record = {};
+                    record.email = $('#email').val();
+                    record.num_records = 1;
+                    record.webhook = $('#webhook-url').val();
+                    record.type = "test";
 
-                try {
-                    var xhr = new XMLHttpRequest();
-                    xhr.open("POST", "https://qa-dataflownode.zerionsoftware.com/domain/qatest/services/webhooks/3133f7ef6c97842bacc243b2878e0814f539a21c-56114809a816ea2d02803375372d41a6d3420435", true);
-                    xhr.setRequestHeader('Content-Type', 'application/json');
-                    xhr.send(JSON.stringify(record));
-                    $('#btn_send_record').text("Request Received");
-                } catch (e) {
-                    $('#btn_send_record').text("Error Sending Records");
+                    try {
+                        var xhr = new XMLHttpRequest();
+                        xhr.open("POST", "https://qa-dataflownode.zerionsoftware.com/domain/qatest/services/webhooks/3133f7ef6c97842bacc243b2878e0814f539a21c-56114809a816ea2d02803375372d41a6d3420435", true);
+                        xhr.setRequestHeader('Content-Type', 'application/json');
+                        xhr.send(JSON.stringify(record));
+                        $('#btn_send_record').text("Request Received");
+                    } catch (e) {
+                        $('#btn_send_record').text("Error Sending Records");
+                    }
                 }
             });
             $('#btn_submit_task').click(function() {
@@ -161,7 +163,7 @@
                             $("#task_submitted").css("display", "initial");
                             $("#task_interface").slideUp();
                         } catch (e) {
-                           alert("There was an error sending your submission");
+                            alert("There was an error sending your submission");
                         }
                     }
                 }
