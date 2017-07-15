@@ -1,0 +1,374 @@
+<!doctype html>
+<!--
+  Material Design Lite
+  Copyright 2015 Google Inc. All rights reserved.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      https://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License
+-->
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="A front-end template that helps you build fast, modern mobile web apps.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <title>Dataflow Certification Task: Flattening Data</title>
+
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="icon" sizes="192x192" href="images/android-desktop.png">
+
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Material Design Lite">
+    <link rel="apple-touch-icon-precomposed" href="images/ios-desktop.png">
+
+    <!-- Tile icon for Win8 (144x144 + tile color) -->
+    <meta name="msapplication-TileImage" content="images/touch/ms-touch-icon-144x144-precomposed.png">
+    <meta name="msapplication-TileColor" content="#3372DF">
+
+    <link rel="shortcut icon" href="images/favicon.png">
+
+    <!-- SEO: If your mobile URL is different from the desktop URL, add a canonical link to the desktop page https://developers.google.com/webmasters/smartphone-sites/feature-phones -->
+    <!--
+    <link rel="canonical" href="http://www.example.com/">
+    -->
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.teal-red.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        #view-source {
+            position: fixed;
+            display: block;
+            right: 0;
+            bottom: 0;
+            margin-right: 40px;
+            margin-bottom: 40px;
+            z-index: 900;
+        }
+
+        .demo-ribbon {
+            background-color: #89bd48;
+            !important;
+        }
+
+        .mdl-tabs.is-upgraded .mdl-tabs__tab.is-active:after {
+            background: rgb(123, 170, 64) !important;
+        }
+
+        .demo-list-icon {
+            width: 300px;
+        }
+
+        code {
+            font-family: 'Ubuntu Mono', 'Monaco', 'Consolas', 'monospace';
+            font-size: 110%;
+        }
+
+        .mdl-tabs.is-upgraded .mdl-tabs__tab.is-active:after {
+            background: rgb(123, 170, 64) !important;
+        }
+
+        .demo-list-control {
+            width: 300px;
+        }
+
+        .demo-list-radio {
+            display: inline;
+        }
+
+        li.mdl-list__item {
+            padding: 5px;
+            min-height: 38px;
+            font-size: 100%;
+        }
+
+        .demo-list-control {
+            width: 98%;
+            margin-left: 20px;
+            margin-top: -15px;
+        }
+        .inputfile {
+            width: 0.1px;
+            height: 0.1px;
+            opacity: 0;
+            overflow: hidden;
+            position: absolute;
+            z-index: -1;
+        }
+
+        label.submit_task {
+            padding: 10px;
+            font-size: 125%;
+            background-color: #89bd48;
+            color: #FFF;
+        }
+
+        .inputfile+label {
+            cursor: pointer;
+            color: #FFF;
+            /* "hand" cursor */
+        }
+
+        .submit_task+label {
+            cursor: pointer;
+            color: #FFF;
+            /* "hand" cursor */
+        }
+        textarea#dataflow_file {
+            font-family: monospace;
+            margin-top: 1em;
+            min-width: 100%;
+            min-height: 300px;
+            overflow: scroll;
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="Dataflow_Cert_Task_9.js"></script>
+    <script>
+        $(document).ready(function() {
+            var saveData = (function() {
+                var a = document.createElement("a");
+                document.body.appendChild(a);
+                a.style = "display: none";
+                return function(data, fileName) {
+                    var json = JSON.stringify(data),
+                        blob = new Blob([json], {
+                            type: "octet/stream"
+                        }),
+                        url = window.URL.createObjectURL(blob);
+                    a.href = url;
+                    a.download = fileName;
+                    a.click();
+                    window.URL.revokeObjectURL(url);
+                };
+            }());
+
+            $('#btn_download-dataflow').click(function() {
+                saveData(dataflow, "Dataflow_Cert_Task_9.js");
+            });
+
+            $('#copy_transform-code').click(function() {
+               $("#transform_code").css("display","initial");
+               $("#transform_code").select();
+               document.execCommand("copy");
+               $("#transform_code").css("display","none");
+            });
+
+            $('#btn_submit_task').click(function() {
+                if (document.getElementById('shared').checked) {
+                    var submission = {};
+                    submission.first_name = $('#first-name').val();
+                    submission.last_name = $('#last-name').val();
+                    submission.email = $('#submit-email').val();
+                    submission.dataflow_name = $('#dataflow-name').val();
+                    if (submission.first_name.trim().length > 0 && submission.last_name.trim().length > 0 && submission.email.trim().length > 0 && submission.dataflow_name.trim().length > 0) {
+                        try {
+                            var xhr = new XMLHttpRequest();
+                            xhr.open("POST", "https://qa-dataflownode.zerionsoftware.com/domain/qatest/services/webhooks/04ce813cfae9bed890aa6f77d4fb6954cbe36754-3e033fa7c4cb3aa5522333d6e92ad695fe4cefa7", true);
+                            xhr.setRequestHeader('Content-Type', 'application/json');
+                            xhr.send(JSON.stringify(submission));
+                            $("#task_submitted").css("display", "initial");
+                            $("#task_interface").slideUp();
+                        } catch (e) {
+                           alert("There was an error sending your submission");
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div class="demo-layout mdl-layout mdl-layout--fixed-header mdl-js-layout mdl-color--grey-100">
+        <div class="demo-ribbon"></div>
+        <main class="demo-main mdl-layout__content">
+            <div class="demo-container mdl-grid">
+                <div class="mdl-cell mdl-cell--2-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
+                <div class="demo-content mdl-color--white mdl-shadow--4dp content mdl-color-text--grey-800 mdl-cell mdl-cell--8-col">
+                    <!-- Beginning of Content -->
+                    <div id="task_interface">
+                        <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+                            <div class="mdl-tabs__tab-bar">
+                                <a href="#instruction-panel" class="mdl-tabs__tab is-active">Instructions</a>
+                                <a href="#instruction2-panel" class="mdl-tabs__tab">Advanced Config</a>
+                                <a href="#submission-panel" class="mdl-tabs__tab">Submit</a>
+                            </div>
+                            <div class="mdl-tabs__panel is-active" id="instruction-panel">
+                                <!-- Instructions -->
+                                <h4>What Do I Do?</h4>
+                                <p>The purpose of this task is to create a Dataflow that can be used to analyze the differences in data flattening solutions. To begin, download the Dataflow template then follow the intial instructions below.</p>
+                                <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" style="background-color: #89bd48;" id="btn_download-dataflow">Download Dataflow</button>
+                                <br /><br />
+                                <ul class="demo-list-control mdl-list">
+                                    <li class="mdl-list__item">
+                                        <span class="mdl-list__item-secondary-action">
+                                       <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="list-checkbox-1">
+                                         <input type="checkbox" id="list-checkbox-1" class="mdl-checkbox__input" />
+                                       </label>
+                                    </span>
+                                        <span class="mdl-list__item-primary-content">
+                                     Import the Dataflow
+                                  </span>
+                                    </li>
+                                    <li class="mdl-list__item">
+                                        <span class="mdl-list__item-secondary-action">
+                                       <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="list-checkbox-2">
+                                         <input type="checkbox" id="list-checkbox-2" class="mdl-checkbox__input" />
+                                       </label>
+                                    </span>
+                                        <span class="mdl-list__item-primary-content">
+                                     Ensure your username is in the title and description
+                                  </span>
+                                    </li>
+                                    <li class="mdl-list__item">
+                                        <span class="mdl-list__item-secondary-action">
+                                       <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="list-checkbox-3">
+                                         <input type="checkbox" id="list-checkbox-3" class="mdl-checkbox__input" />
+                                       </label>
+                                    </span>
+                                        <span class="mdl-list__item-primary-content">
+                                     In the flatteniFormObject RecordSet, apply a new filter and enter the following in the transform return: dataflow.flatteniFormObject(record)
+                                  </span>
+                                    </li>
+                                    <li class="mdl-list__item">
+                                        <span class="mdl-list__item-secondary-action">
+                                       <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="list-checkbox-4">
+                                         <input type="checkbox" id="list-checkbox-4" class="mdl-checkbox__input" />
+                                       </label>
+                                    </span>
+                                        <span class="mdl-list__item-primary-content">
+                                     In the flatteniFormSubformObject RecordSet, apply a new filter and enter the following in the transform return: dataflow.flatteniFormSubformObject(record)
+                                  </span>
+                                    </li>
+                                    <li class="mdl-list__item">
+                                        <span class="mdl-list__item-secondary-action">
+                                       <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="list-checkbox-5">
+                                         <input type="checkbox" id="list-checkbox-5" class="mdl-checkbox__input" />
+                                       </label>
+                                    </span>
+                                        <span class="mdl-list__item-primary-content">
+                                     In the isolateSubform RecordSet, apply a new filter and enter the following in the transform return: record.roof_details
+                                  </span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="mdl-tabs__panel" id="instruction2-panel">
+                                <h4>Custom Full Flatten</h4>
+                                <p>The transformation for a full flatten is more complex. In order to fully flatten a form we need to define a function in the Transform Code section. The function's text can be copied from the button below.</p>
+                                <ul class="demo-list-control mdl-list">
+                                    <li class="mdl-list__item">
+                                        <span class="mdl-list__item-secondary-action">
+                                       <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="list-checkbox-a">
+                                         <input type="checkbox" id="list-checkbox-a" class="mdl-checkbox__input" />
+                                       </label>
+                                    </span>
+                                        <span class="mdl-list__item-primary-content">
+                                     Copy the Transform Code from the button below
+                                  </span>
+                                    </li>
+                                    <li class="mdl-list__item">
+                                        <span class="mdl-list__item-secondary-action">
+                                       <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="list-checkbox-b">
+                                         <input type="checkbox" id="list-checkbox-b" class="mdl-checkbox__input" />
+                                       </label>
+                                    </span>
+                                        <span class="mdl-list__item-primary-content">
+                                     In the RecordSet customFullFlatten, apply a new filter and paste the copied code into the Transform Code section
+                                  </span>
+                                    </li>
+                                    <li class="mdl-list__item">
+                                        <span class="mdl-list__item-secondary-action">
+                                       <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="list-checkbox-c">
+                                         <input type="checkbox" id="list-checkbox-c" class="mdl-checkbox__input" />
+                                       </label>
+                                    </span>
+                                        <span class="mdl-list__item-primary-content">
+                                     Update the Transform Return from <strong>&nbsp;record&nbsp;</strong> to <strong>&nbsp;flatten(record)</strong>
+                                  </span>
+                                    </li>
+                                </ul>
+                                <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" style="background-color: #89bd48;" id="copy_transform-code">Copy Transform Code</button>
+                            </div>
+                            <div class="mdl-tabs__panel" id="submission-panel">
+                                <h4>How to Submit the Task</h4>
+                                <p>Share your Dataflow with the user '<strong>jhsu_qatest</strong>'. Afterwards, fill out the form below to send a submission alert.</p>
+                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                    <input class="mdl-textfield__input" type="text" id="first-name">
+                                    <label class="mdl-textfield__label" for="last-name">First Name</label>
+                                </div>
+                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                    <input class="mdl-textfield__input" type="text" id="last-name">
+                                    <label class="mdl-textfield__label" for="last-name">Last Name</label>
+                                </div>
+                                <br />
+                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                    <input class="mdl-textfield__input" type="text" id="submit-email">
+                                    <label class="mdl-textfield__label" for="submit-email">Email Address</label>
+                                </div>
+                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                    <input class="mdl-textfield__input" type="text" id="dataflow-name">
+                                    <label class="mdl-textfield__label" for="dataflow-name">Dataflow Name</label>
+                                </div>
+                                <br />
+                                <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="shared">
+  <input type="checkbox" id="shared" class="mdl-checkbox__input">
+  <span class="mdl-checkbox__label">Dataflow has been shared with <strong>jhsu_qatest</strong></span>
+</label>
+                                <br />
+                                <br /><button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" style="background-color: #89bd48;" id="btn_submit_task">
+                              <span>Send Submission Alert</span>
+                              </button>
+                            </div>
+                        </div>
+                        <!-- End of Content -->
+                    </div>
+                </div>
+        </main>
+        </div>
+        <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+        <textarea id="transform_code" style="display: none">
+           function flatten(data) {
+               var result = {};
+
+               function recurse(cur, prop) {
+                   if (Object(cur) !== cur) {
+                       result[prop] = cur;
+                   } else if (Array.isArray(cur)) {
+                       for (var i = 0, l = cur.length; i < l; i++) {
+                           recurse(cur[i], prop + "_" + i + "_");
+                       }
+                       if (l === 0) {
+                           result[prop] = [];
+                       }
+                   } else {
+                       var isEmpty = true;
+                       for (var p in cur) {
+                           isEmpty = false;
+                           recurse(cur[p], prop ? prop + p : p);
+                       }
+                       if (isEmpty && prop) {
+                           result[prop] = {};
+                       }
+                   }
+               }
+               recurse(data, "");
+               return result;
+           }</textarea>
+</body>
+
+</html>
