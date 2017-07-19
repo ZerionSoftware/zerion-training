@@ -101,6 +101,7 @@
             margin-left: 20px;
             margin-top: -15px;
         }
+
         .inputfile {
             width: 0.1px;
             height: 0.1px;
@@ -128,6 +129,7 @@
             color: #FFF;
             /* "hand" cursor */
         }
+
         textarea#dataflow_file {
             font-family: monospace;
             margin-top: 1em;
@@ -138,6 +140,7 @@
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="Dataflow_Cert_Task_9.js"></script>
+    <script src="payload.js"></script>
     <script>
         $(document).ready(function() {
             var saveData = (function() {
@@ -162,32 +165,19 @@
             });
 
             $('#copy_transform-code').click(function() {
-               $("#transform_code").css("display","initial");
-               $("#transform_code").select();
-               document.execCommand("copy");
-               $("#transform_code").css("display","none");
+                $("#transform_code").css("display", "initial");
+                $("#transform_code").select();
+                document.execCommand("copy");
+                $("#transform_code").css("display", "none");
             });
 
-            $('#btn_submit_task').click(function() {
-                if (document.getElementById('shared').checked) {
-                    var submission = {};
-                    submission.first_name = $('#first-name').val();
-                    submission.last_name = $('#last-name').val();
-                    submission.email = $('#submit-email').val();
-                    submission.dataflow_name = $('#dataflow-name').val();
-                    if (submission.first_name.trim().length > 0 && submission.last_name.trim().length > 0 && submission.email.trim().length > 0 && submission.dataflow_name.trim().length > 0) {
-                        try {
-                            var xhr = new XMLHttpRequest();
-                            xhr.open("POST", "https://qa-dataflownode.zerionsoftware.com/domain/qatest/services/webhooks/04ce813cfae9bed890aa6f77d4fb6954cbe36754-3e033fa7c4cb3aa5522333d6e92ad695fe4cefa7", true);
-                            xhr.setRequestHeader('Content-Type', 'application/json');
-                            xhr.send(JSON.stringify(submission));
-                            $("#task_submitted").css("display", "initial");
-                            $("#task_interface").slideUp();
-                        } catch (e) {
-                           alert("There was an error sending your submission");
-                        }
-                    }
-                }
+            $('#send-data').click(function() {
+               var x = Math.floor(Math.random() * (payload.length - 0) + 0);
+               var xhr = new XMLHttpRequest();
+               xhr.open("POST", $('#webhook-url').val(), true);
+               xhr.setRequestHeader('Content-Type', 'application/json');
+               xhr.send(JSON.stringify(payload[x]));
+               
             });
         });
     </script>
@@ -204,11 +194,11 @@
                     <div id="task_interface">
                         <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
                             <div class="mdl-tabs__tab-bar">
-                                <a href="#instruction-panel" class="mdl-tabs__tab is-active">Instructions</a>
-                                <a href="#instruction2-panel" class="mdl-tabs__tab">Advanced Config</a>
-                                <a href="#submission-panel" class="mdl-tabs__tab">Submit</a>
+                                <a href="#instruction1-panel" class="mdl-tabs__tab is-active">Getting Started</a>
+                                <a href="#instruction2-panel" class="mdl-tabs__tab">Configuration</a>
+                                <a href="#instruction3-panel" class="mdl-tabs__tab">Testing</a>
                             </div>
-                            <div class="mdl-tabs__panel is-active" id="instruction-panel">
+                            <div class="mdl-tabs__panel is-active" id="instruction1-panel">
                                 <!-- Instructions -->
                                 <h4>What Do I Do?</h4>
                                 <p>The purpose of this task is to create a Dataflow that can be used to analyze the differences in data flattening solutions. To begin, download the Dataflow template then follow the intial instructions below.</p>
@@ -235,104 +225,105 @@
                                      Ensure your username is in the title and description
                                   </span>
                                     </li>
-                                    <li class="mdl-list__item">
-                                        <span class="mdl-list__item-secondary-action">
-                                       <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="list-checkbox-3">
-                                         <input type="checkbox" id="list-checkbox-3" class="mdl-checkbox__input" />
-                                       </label>
-                                    </span>
-                                        <span class="mdl-list__item-primary-content">
-                                     In the flatteniFormObject RecordSet, apply a new filter and enter the following in the transform return: dataflow.flatteniFormObject(record)
-                                  </span>
-                                    </li>
-                                    <li class="mdl-list__item">
-                                        <span class="mdl-list__item-secondary-action">
-                                       <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="list-checkbox-4">
-                                         <input type="checkbox" id="list-checkbox-4" class="mdl-checkbox__input" />
-                                       </label>
-                                    </span>
-                                        <span class="mdl-list__item-primary-content">
-                                     In the flatteniFormSubformObject RecordSet, apply a new filter and enter the following in the transform return: dataflow.flatteniFormSubformObject(record)
-                                  </span>
-                                    </li>
-                                    <li class="mdl-list__item">
-                                        <span class="mdl-list__item-secondary-action">
-                                       <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="list-checkbox-5">
-                                         <input type="checkbox" id="list-checkbox-5" class="mdl-checkbox__input" />
-                                       </label>
-                                    </span>
-                                        <span class="mdl-list__item-primary-content">
-                                     In the isolateSubform RecordSet, apply a new filter and enter the following in the transform return: record.roof_details
-                                  </span>
-                                    </li>
                                 </ul>
                             </div>
                             <div class="mdl-tabs__panel" id="instruction2-panel">
-                                <h4>Custom Full Flatten</h4>
+                                <h4>Initial Configuration</h4>
                                 <p>The transformation for a full flatten is more complex. In order to fully flatten a form we need to define a function in the Transform Code section. The function's text can be copied from the button below.</p>
                                 <ul class="demo-list-control mdl-list">
                                     <li class="mdl-list__item">
                                         <span class="mdl-list__item-secondary-action">
-                                       <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="list-checkbox-a">
-                                         <input type="checkbox" id="list-checkbox-a" class="mdl-checkbox__input" />
-                                       </label>
-                                    </span>
+                                      <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="list-checkbox-3">
+                                        <input type="checkbox" id="list-checkbox-3" class="mdl-checkbox__input" />
+                                      </label>
+                                   </span>
                                         <span class="mdl-list__item-primary-content">
-                                     Copy the Transform Code from the button below
-                                  </span>
+                                    In the flatteniFormObject RecordSet, apply a new filter and enter the following in the transform return: dataflow.flatteniFormObject(record)
+                                 </span>
                                     </li>
                                     <li class="mdl-list__item">
                                         <span class="mdl-list__item-secondary-action">
-                                       <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="list-checkbox-b">
-                                         <input type="checkbox" id="list-checkbox-b" class="mdl-checkbox__input" />
-                                       </label>
-                                    </span>
+                                      <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="list-checkbox-4">
+                                        <input type="checkbox" id="list-checkbox-4" class="mdl-checkbox__input" />
+                                      </label>
+                                   </span>
                                         <span class="mdl-list__item-primary-content">
-                                     In the RecordSet customFullFlatten, apply a new filter and paste the copied code into the Transform Code section
-                                  </span>
+                                    In the flatteniFormSubformObject RecordSet, apply a new filter and enter the following in the transform return: dataflow.flatteniFormSubformObject(record)
+                                 </span>
                                     </li>
                                     <li class="mdl-list__item">
                                         <span class="mdl-list__item-secondary-action">
-                                       <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="list-checkbox-c">
-                                         <input type="checkbox" id="list-checkbox-c" class="mdl-checkbox__input" />
-                                       </label>
-                                    </span>
+                                      <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="list-checkbox-5">
+                                        <input type="checkbox" id="list-checkbox-5" class="mdl-checkbox__input" />
+                                      </label>
+                                   </span>
                                         <span class="mdl-list__item-primary-content">
-                                     Update the Transform Return from <strong>&nbsp;record&nbsp;</strong> to <strong>&nbsp;flatten(record)</strong>
-                                  </span>
+                                    In the isolateSubform RecordSet, apply a new filter and enter the following in the transform return: record.roof_details
+                                 </span>
+                                    </li>
+                                </ul>
+                                <h4>Custom Full Flatten</h4>
+                                <ul class="demo-list-control mdl-list">
+                                    <li class="mdl-list__item">
+                                        <span class="mdl-list__item-secondary-action">
+                                      <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="list-checkbox-a">
+                                       <input type="checkbox" id="list-checkbox-a" class="mdl-checkbox__input" />
+                                      </label>
+                                   </span>
+                                        <span class="mdl-list__item-primary-content">
+                                    Copy the Transform Code from the button below
+                                   </span>
+                                    </li>
+                                    <li class="mdl-list__item">
+                                        <span class="mdl-list__item-secondary-action">
+                                      <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="list-checkbox-b">
+                                       <input type="checkbox" id="list-checkbox-b" class="mdl-checkbox__input" />
+                                      </label>
+                                   </span>
+                                        <span class="mdl-list__item-primary-content">
+                                    In the customFullFlatten RecordSet, apply a new filter and paste the copied code into the Transform Code section
+                                   </span>
+                                    </li>
+                                    <li class="mdl-list__item">
+                                        <span class="mdl-list__item-secondary-action">
+                                      <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="list-checkbox-c">
+                                       <input type="checkbox" id="list-checkbox-c" class="mdl-checkbox__input" />
+                                      </label>
+                                   </span>
+                                        <span class="mdl-list__item-primary-content">
+                                    Update the Transform Return from <strong>&nbsp;record&nbsp;</strong> to <strong>&nbsp;flatten(record)</strong>
+                                   </span>
                                     </li>
                                 </ul>
                                 <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" style="background-color: #89bd48;" id="copy_transform-code">Copy Transform Code</button>
                             </div>
-                            <div class="mdl-tabs__panel" id="submission-panel">
-                                <h4>How to Submit the Task</h4>
-                                <p>Share your Dataflow with the user '<strong>jhsu_qatest</strong>'. Afterwards, fill out the form below to send a submission alert.</p>
+                            <div class="mdl-tabs__panel" id="instruction3-panel">
+                                <h4>Testing the Dataflow</h4>
+                                <p>It's time to put some data in your Dataflow and begin analyzing the differences in data flattening techniques.  Copy your Webhook URL, paste it in the text input below, and click the button to send a sample record to your Dataflow.</p>
                                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                    <input class="mdl-textfield__input" type="text" id="first-name">
-                                    <label class="mdl-textfield__label" for="last-name">First Name</label>
+                                    <input class="mdl-textfield__input" type="text" id="webhook-url">
+                                    <label class="mdl-textfield__label" for="webhook-url">Webhook URL</label>
                                 </div>
-                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                    <input class="mdl-textfield__input" type="text" id="last-name">
-                                    <label class="mdl-textfield__label" for="last-name">Last Name</label>
-                                </div>
-                                <br />
-                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                    <input class="mdl-textfield__input" type="text" id="submit-email">
-                                    <label class="mdl-textfield__label" for="submit-email">Email Address</label>
-                                </div>
-                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                    <input class="mdl-textfield__input" type="text" id="dataflow-name">
-                                    <label class="mdl-textfield__label" for="dataflow-name">Dataflow Name</label>
-                                </div>
-                                <br />
-                                <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="shared">
-  <input type="checkbox" id="shared" class="mdl-checkbox__input">
-  <span class="mdl-checkbox__label">Dataflow has been shared with <strong>jhsu_qatest</strong></span>
-</label>
-                                <br />
-                                <br /><button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" style="background-color: #89bd48;" id="btn_submit_task">
-                              <span>Send Submission Alert</span>
-                              </button>
+                                <p>
+                                   <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" style="background-color: #89bd48;" id="send-data">Send Data to Webhook</button>
+                                   <div id="demo-toast-example" class="mdl-js-snackbar mdl-snackbar">
+  <div class="mdl-snackbar__text"></div>
+  <button class="mdl-snackbar__action" type="button"></button>
+</div>
+<script>
+(function() {
+  'use strict';
+  window['counter'] = 0;
+  var snackbarContainer = document.querySelector('#demo-toast-example');
+  var showToastButton = document.querySelector('#send-data');
+  showToastButton.addEventListener('click', function() {
+    'use strict';
+    var data = {message: 'Records Sent: ' + ++counter};
+    snackbarContainer.MaterialSnackbar.showSnackbar(data);
+  });
+}());
+</script>
+                                </p>
                             </div>
                         </div>
                         <!-- End of Content -->
@@ -342,33 +333,33 @@
         </div>
         <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
         <textarea id="transform_code" style="display: none">
-           function flatten(data) {
-               var result = {};
+function flatten(data) {
+   var result = {};
 
-               function recurse(cur, prop) {
-                   if (Object(cur) !== cur) {
-                       result[prop] = cur;
-                   } else if (Array.isArray(cur)) {
-                       for (var i = 0, l = cur.length; i < l; i++) {
-                           recurse(cur[i], prop + "_" + i + "_");
-                       }
-                       if (l === 0) {
-                           result[prop] = [];
-                       }
-                   } else {
-                       var isEmpty = true;
-                       for (var p in cur) {
-                           isEmpty = false;
-                           recurse(cur[p], prop ? prop + p : p);
-                       }
-                       if (isEmpty && prop) {
-                           result[prop] = {};
-                       }
-                   }
-               }
-               recurse(data, "");
-               return result;
-           }</textarea>
+   function recurse(cur, prop) {
+       if (Object(cur) !== cur) {
+           result[prop] = cur;
+       } else if (Array.isArray(cur)) {
+           for (var i = 0, l = cur.length; i < l; i++) {
+               recurse(cur[i], prop + "_" + i + "_");
+           }
+           if (l === 0) {
+               result[prop] = [];
+           }
+       } else {
+           var isEmpty = true;
+           for (var p in cur) {
+               isEmpty = false;
+               recurse(cur[p], prop ? prop + p : p);
+           }
+           if (isEmpty && prop) {
+               result[prop] = {};
+           }
+       }
+   }
+   recurse(data, "");
+   return result;
+}</textarea>
 </body>
 
 </html>
