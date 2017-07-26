@@ -174,7 +174,9 @@
                 saveData(dataflow, "Dataflow_Cert_Task_9.json");
             });
 
-            
+            $('#switch').click(function() {
+               $('#t1').attr('href', '#trial1-panel');
+            });
 
             $('#btn_send-trial-1').click(function() {
                 var x = Math.floor(Math.random() * rs1.length);
@@ -352,7 +354,7 @@
                         <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
                             <div class="mdl-tabs__tab-bar">
                                 <a href="#instruction-panel" class="mdl-tabs__tab is-active">Getting Started</a>
-                                <a href="#trial1-panel" class="mdl-tabs__tab" id="t1">Trial 1</a>
+                                <a href="#" class="mdl-tabs__tab" id="t1">Trial 1</a>
                                 <a href="#" class="mdl-tabs__tab" id="t2">Trial 2</a>
                                 <a href="#" class="mdl-tabs__tab" id="t3">Trial 3</a>
                             </div>
