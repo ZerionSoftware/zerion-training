@@ -1,0 +1,477 @@
+<!doctype html>
+<!--
+  Material Design Lite
+  Copyright 2015 Google Inc. All rights reserved.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      https://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License
+-->
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="A front-end template that helps you build fast, modern mobile web apps.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <title>Dataflow Certification Task: Flattening Data</title>
+
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="icon" sizes="192x192" href="images/android-desktop.png">
+
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Material Design Lite">
+    <link rel="apple-touch-icon-precomposed" href="images/ios-desktop.png">
+
+    <!-- Tile icon for Win8 (144x144 + tile color) -->
+    <meta name="msapplication-TileImage" content="images/touch/ms-touch-icon-144x144-precomposed.png">
+    <meta name="msapplication-TileColor" content="#3372DF">
+
+    <link rel="shortcut icon" href="images/favicon.png">
+
+    <!-- SEO: If your mobile URL is different from the desktop URL, add a canonical link to the desktop page https://developers.google.com/webmasters/smartphone-sites/feature-phones -->
+    <!--
+    <link rel="canonical" href="http://www.example.com/">
+    -->
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.teal-red.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        #view-source {
+            position: fixed;
+            display: block;
+            right: 0;
+            bottom: 0;
+            margin-right: 40px;
+            margin-bottom: 40px;
+            z-index: 900;
+        }
+
+        .demo-ribbon {
+            background-color: #89bd48;
+            !important;
+        }
+
+        .mdl-tabs.is-upgraded .mdl-tabs__tab.is-active:after {
+            background: rgb(123, 170, 64) !important;
+        }
+
+        .demo-list-icon {
+            width: 300px;
+        }
+
+        code {
+            font-family: 'Ubuntu Mono', 'Monaco', 'Consolas', 'monospace';
+            font-size: 110%;
+        }
+
+        .mdl-tabs.is-upgraded .mdl-tabs__tab.is-active:after {
+            background: rgb(123, 170, 64) !important;
+        }
+
+        .demo-list-control {
+            width: 300px;
+        }
+
+        .demo-list-radio {
+            display: inline;
+        }
+
+        li.mdl-list__item {
+            padding: 5px;
+            min-height: 38px;
+            font-size: 100%;
+        }
+
+        .demo-list-control {
+            width: 98%;
+            margin-left: 20px;
+            margin-top: -15px;
+        }
+
+        .inputfile {
+            width: 0.1px;
+            height: 0.1px;
+            opacity: 0;
+            overflow: hidden;
+            position: absolute;
+            z-index: -1;
+        }
+
+        label.submit_task {
+            padding: 10px;
+            font-size: 125%;
+            background-color: #89bd48;
+            color: #FFF;
+        }
+
+        .inputfile+label {
+            cursor: pointer;
+            color: #FFF;
+            /* "hand" cursor */
+        }
+
+        .submit_task+label {
+            cursor: pointer;
+            color: #FFF;
+            /* "hand" cursor */
+        }
+
+        textarea.record {
+            font-family: monospace;
+            margin-top: 1em;
+            min-width: 100%;
+            min-height: 300px;
+            overflow: scroll;
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="Dataflow_Cert_Task_9.js"></script>
+    <script src="rs1.js"></script>
+    <script src="rs2.js"></script>
+    <script src="rs3.js"></script>
+    <script>
+        var rs1_count1, rs1_count2, rs1_count3, rs1_count4;
+        var rs2_count1, rs2_count2, rs2_count3, rs2_count4;
+        var rs3_count1, rs3_count2, rs3_count3, rs3_count4;
+
+        $(document).ready(function() {
+            $('#t1_ans').slideUp();
+            $('#t2_ans').slideUp();
+            $('#t3_ans').slideUp();
+
+            var saveData = (function() {
+                var a = document.createElement("a");
+                document.body.appendChild(a);
+                a.style = "display: none";
+                return function(data, fileName) {
+                    var json = JSON.stringify(data),
+                        blob = new Blob([json], {
+                            type: "octet/stream"
+                        }),
+                        url = window.URL.createObjectURL(blob);
+                    a.href = url;
+                    a.download = fileName;
+                    a.click();
+                    window.URL.revokeObjectURL(url);
+                };
+            }());
+
+            $('#btn_download-dataflow').click(function() {
+                saveData(dataflow, "Dataflow_Cert_Task_9.json");
+            });
+
+            $('#btn_send-trial-1').click(function() {
+                var x = Math.floor(Math.random() * rs1.length);
+                rs1_count1 = rs1[x].vehicles.length;
+                rs1_count2 = rs1[x].vehicles.length;
+                rs1_count3 = rs1[x].vehicles.length;
+                rs1_count4 = 1;
+
+                $('#rs1-record-vehicles').val("");
+                $('#rs1-flatteniformobject').val("");
+                $('#rs1-flatteniformsubformobject').val("");
+                $('#rs1-customfullflatten').val("");
+
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", $('#webhook').val(), true);
+                xhr.setRequestHeader('Content-Type', 'application/json');
+                xhr.send(JSON.stringify(rs1[x]));
+
+                console.log(rs1_count1, rs1_count2, rs1_count3, rs1_count4);
+                document.getElementById("record1").value = JSON.stringify(rs1[x], null, 2);
+                $('#btn_t1').slideUp();
+                $('#t1_ans').slideDown();
+            });
+
+            $('#btn_send-trial-3').click(function() {
+                var x = Math.floor(Math.random() * rs3.length);
+                rs3_count1 = rs3[x].vehicles.length;
+                rs3_count2 = rs3[x].vehicles.length + rs3[x].children.length;
+                rs3_count3 = rs3[x].vehicles.length * rs3[x].children.length;
+                rs3_count4 = 1;
+
+                $('#rs3-record-vehicles').val("");
+                $('#rs3-flatteniformobject').val("");
+                $('#rs3-flatteniformsubformobject').val("");
+                $('#rs3-customfullflatten').val("");
+
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", $('#webhook').val(), true);
+                xhr.setRequestHeader('Content-Type', 'application/json');
+                xhr.send(JSON.stringify(rs3[x]));
+
+                console.log(rs3_count1, rs3_count2, rs3_count3, rs3_count4);
+                document.getElementById("record3").value = JSON.stringify(rs3[x], null, 2);
+                $('#btn_t3').slideUp();
+                $('#t3_ans').slideDown();
+            });
+
+            $('#btn_send-trial-2').click(function() {
+                var x = Math.floor(Math.random() * rs2.length);
+                rs2_count1 = rs2[x].vehicles.length;
+                rs2_count2 = 0;
+                for (var i = 0; i < rs2[x].vehicles.length; i++) {
+                    rs2_count2 += rs2[x].vehicles[i].insured.length;
+                }
+                rs2_count3 = rs2_count2;
+                rs2_count4 = 1;
+                $('#rs2-record-vehicles').val("");
+                $('#rs2-flatteniformobject').val("");
+                $('#rs2-flatteniformsubformobject').val("");
+                $('#rs2-customfullflatten').val("");
+
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", $('#webhook').val(), true);
+                xhr.setRequestHeader('Content-Type', 'application/json');
+                xhr.send(JSON.stringify(rs2[x]));
+
+                console.log(rs2_count1, rs2_count2, rs2_count3, rs2_count4);
+                document.getElementById("record2").value = JSON.stringify(rs2[x], null, 2);
+                $('#btn_t2').slideUp();
+                $('#t2_ans').slideDown();
+            });
+
+            $('#btn_check-trial-1').click(function() {
+                var errors = false;
+                var errorList = [];
+                if (Number($('#rs1-record-vehicles').val()) != rs1_count1) {
+                    errors = true;
+                    errorList.push("Trial 1: record.vehicles is incorrect");
+                }
+                if (Number($('#rs1-flatteniformobject').val()) != rs1_count2) {
+                    errors = true;
+                    errorList.push("Trial 1: flatteniFormObject is incorrect");
+                }
+                if (Number($('#rs1-flatteniformsubformobject').val()) != rs1_count3) {
+                    errors = true;
+                    errorList.push("Trial 1: flatteniFormSubformObject is incorrect");
+                }
+                if (Number($('#rs1-customfullflatten').val()) != rs1_count4) {
+                    errors = true;
+                    errorList.push("Trial 1: customFullFlatten is incorrect");
+                }
+
+                if (errors) {
+                    $('#t1_ans').slideUp();
+                    $('#btn_t1').slideDown();
+                    document.getElementById("record1").value = errorList.join("\n");
+                } else {
+                    alert("That's correct!! Move on to trial number 2.");
+                    $('#t2').attr('href', '#trial2-panel');
+                }
+            });
+
+            $('#btn_check-trial-2').click(function() {
+                var errors = false;
+                var errorList = [];
+                if (Number($('#rs2-record-vehicles').val()) != rs2_count1) {
+                    errors = true;
+                    errorList.push("Trial 2: record.vehicles is incorrect");
+                }
+                if (Number($('#rs2-flatteniformobject').val()) != rs2_count2) {
+                    errors = true;
+                    errorList.push("Trial 2: flatteniFormObject is incorrect");
+                }
+                if (Number($('#rs2-flatteniformsubformobject').val()) != rs2_count3) {
+                    errors = true;
+                    errorList.push("Trial 2: flatteniFormSubformObject is incorrect");
+                }
+                if (Number($('#rs2-customfullflatten').val()) != rs2_count4) {
+                    errors = true;
+                    errorList.push("Trial 2: customFullFlatten is incorrect");
+                }
+
+                if (errors) {
+                    $('#t2_ans').slideUp();
+                    $('#btn_t2').slideDown();
+                    document.getElementById("record2").value = errorList.join("\n");
+                } else {
+                    alert("That's correct!! Move on to trial number 3.");
+                    $('#t3').attr('href', '#trial3-panel');
+                }
+            });
+
+            $('#btn_check-trial-3').click(function() {
+                var errors = false;
+                var errorList = [];
+                if (Number($('#rs3-record-vehicles').val()) != rs3_count1) {
+                    errors = true;
+                    errorList.push("Trial 3: record.vehicles is incorrect");
+                }
+                if (Number($('#rs3-flatteniformobject').val()) != rs3_count2) {
+                    errors = true;
+                    errorList.push("Trial 3: flatteniFormObject is incorrect");
+                }
+                if (Number($('#rs3-flatteniformsubformobject').val()) != rs3_count3) {
+                    errors = true;
+                    errorList.push("Trial 3: flatteniFormSubformObject is incorrect");
+                }
+                if (Number($('#rs3-customfullflatten').val()) != rs3_count4) {
+                    errors = true;
+                    errorList.push("Trial 3: customFullFlatten is incorrect");
+                }
+
+                if (errors) {
+                    $('#t3_ans').slideUp();
+                    $('#btn_t3').slideDown();
+                    document.getElementById("record3").value = errorList.join("\n");
+                } else {
+                    alert("That's correct!! You've completed this task and your progress has been updated.");
+                }
+            });
+
+        });
+    </script>
+</head>
+
+<body>
+    <div class="demo-layout mdl-layout mdl-layout--fixed-header mdl-js-layout mdl-color--grey-100">
+        <div class="demo-ribbon"></div>
+        <main class="demo-main mdl-layout__content">
+            <div class="demo-container mdl-grid">
+                <div class="mdl-cell mdl-cell--2-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
+                <div class="demo-content mdl-color--white mdl-shadow--4dp content mdl-color-text--grey-800 mdl-cell mdl-cell--8-col">
+                    <!-- Beginning of Content -->
+                    <div id="task_interface">
+                        <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+                            <div class="mdl-tabs__tab-bar">
+                                <a href="#instruction-panel" class="mdl-tabs__tab is-active">Getting Started</a>
+                                <a href="#trial1-panel" class="mdl-tabs__tab" id="t1">Trial 1</a>
+                                <a href="#" class="mdl-tabs__tab" id="t2">Trial 2</a>
+                                <a href="#" class="mdl-tabs__tab" id="t3">Trial 3</a>
+                            </div>
+                            <div class="mdl-tabs__panel is-active" id="instruction-panel">
+                                <!-- Instructions -->
+                                <h4>What Do I Do?</h4>
+                                <p>The purpose of this task is to discover the behaviors of different data flattening techniques. We will be experimenting with sample records that increase in complexity across multiple trials.</p>
+                                <h6>Step 1: Download Dataflow</h6>
+                                <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" style="background-color: #89bd48;" id="btn_download-dataflow">Download Dataflow_Cert_Task_9.json</button>
+                                <h6>Step 2: Import the Dataflow</h6>
+                                <p>In the Builder Menu, under Dataflow, choose 'Import Dataflow'. Select the downloaded file and click Import -- you may need to change the Dataflow name. Once the Dataflow is imported, select the Webhook and copy/paste the
+                                    URL below.</p>
+                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                    <input class="mdl-textfield__input" type="text" id="webhook">
+                                    <label class="mdl-textfield__label" for="webhook">Webhook URL</label>
+                                </div>
+                                <h6>Step 3: Proceed to Trial 1</h6>
+                                <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="switch">
+                                   <input type="checkbox" id="switch" class="mdl-switch__input" />
+                                   <span class="mdl-switch__label">You're all set! Toggle to enable the Trial 1 tab.</span>
+                                </label>
+                            </div>
+                            <div class="mdl-tabs__panel" id="trial1-panel">
+                                <h4>Trial 1: One Multi-paging Subform</h4>
+                                <div id="btn_t1">
+                                    <p><button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" style="background-color: #89bd48;" id="btn_send-trial-1">Click to Start</button></p>
+                                </div>
+                                <p><textarea class="record" id="record1"></textarea></p>
+                                <div id="t1_ans">
+                                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                        <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="rs1-record-vehicles">
+                                        <label class="mdl-textfield__label" for="rs1-record-vehicles">record.vehicles</label>
+                                        <span class="mdl-textfield__error">Input is not a number!</span>
+                                    </div>
+                                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                        <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="rs1-flatteniformobject">
+                                        <label class="mdl-textfield__label" for="rs1-flatteniformobject">flatteniFormObject()</label>
+                                        <span class="mdl-textfield__error">Input is not a number!</span>
+                                    </div>
+                                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                        <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="rs1-flatteniformsubformobject">
+                                        <label class="mdl-textfield__label" for="rs1-flatteniformsubformobject">flatteniFormSubformObject()</label>
+                                        <span class="mdl-textfield__error">Input is not a number!</span>
+                                    </div>
+                                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                        <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="rs1-customfullflatten">
+                                        <label class="mdl-textfield__label" for="rs1-customfullflatten">customFullFlatten()</label>
+                                        <span class="mdl-textfield__error">Input is not a number!</span>
+                                    </div>
+                                    <p><button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" style="background-color: #89bd48;" id="btn_check-trial-1">Check Answers</button></p>
+                                </div>
+                            </div>
+                            <!-- Trial 2: One Multi-paging Grandchild Subform -->
+                            <div class="mdl-tabs__panel" id="trial2-panel">
+                                <h4>Trial 2: One Nested Multi-paging Grandchild Subform</h4>
+                                <div id="btn_t2">
+                                    <p><button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" style="background-color: #89bd48;" id="btn_send-trial-2">Click to Start</button></p>
+                                </div>
+                                <p><textarea class="record" id="record2"></textarea></p>
+                                <div id="t2_ans">
+                                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                        <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="rs2-record-vehicles">
+                                        <label class="mdl-textfield__label" for="rs2-record-vehicles">record.vehicles</label>
+                                        <span class="mdl-textfield__error">Input is not a number!</span>
+                                    </div>
+                                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                        <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="rs2-flatteniformobject">
+                                        <label class="mdl-textfield__label" for="rs2-flatteniformobject">flatteniFormObject()</label>
+                                        <span class="mdl-textfield__error">Input is not a number!</span>
+                                    </div>
+                                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                        <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="rs2-flatteniformsubformobject">
+                                        <label class="mdl-textfield__label" for="rs2-flatteniformsubformobject">flatteniFormSubformObject()</label>
+                                        <span class="mdl-textfield__error">Input is not a number!</span>
+                                    </div>
+                                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                        <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="rs2-customfullflatten">
+                                        <label class="mdl-textfield__label" for="rs2-customfullflatten">customFullFlatten()</label>
+                                        <span class="mdl-textfield__error">Input is not a number!</span>
+                                    </div>
+                                    <p><button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" style="background-color: #89bd48;" id="btn_check-trial-2">Check Answers</button></p>
+                                </div>
+                            </div>
+                            <!-- Trial 3: Two Multi-paging Subforms -->
+                            <div class="mdl-tabs__panel" id="trial3-panel">
+                                <h4>Trial 3: Two Multi-paging Subforms</h4>
+                                <div id="btn_t3">
+                                    <p><button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" style="background-color: #89bd48;" id="btn_send-trial-3">Click to Start</button></p>
+                                </div>
+                                <p><textarea class="record" id="record3"></textarea></p>
+                                <div id="t3_ans">
+                                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                        <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="rs3-record-vehicles">
+                                        <label class="mdl-textfield__label" for="rs3-record-vehicles">record.vehicles</label>
+                                        <span class="mdl-textfield__error">Input is not a number!</span>
+                                    </div>
+                                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                        <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="rs3-flatteniformobject">
+                                        <label class="mdl-textfield__label" for="rs3-flatteniformobject">flatteniFormObject()</label>
+                                        <span class="mdl-textfield__error">Input is not a number!</span>
+                                    </div>
+                                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                        <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="rs3-flatteniformsubformobject">
+                                        <label class="mdl-textfield__label" for="rs3-flatteniformsubformobject">flatteniFormSubformObject()</label>
+                                        <span class="mdl-textfield__error">Input is not a number!</span>
+                                    </div>
+                                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                        <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="rs3-customfullflatten">
+                                        <label class="mdl-textfield__label" for="rs3-customfullflatten">customFullFlatten()</label>
+                                        <span class="mdl-textfield__error">Input is not a number!</span>
+                                    </div>
+                                    <p><button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" style="background-color: #89bd48;" id="btn_check-trial-3">Check Answers</button></p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End of Content -->
+                    </div>
+                </div>
+        </main>
+        </div>
+        <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+</body>
+
+</html>
