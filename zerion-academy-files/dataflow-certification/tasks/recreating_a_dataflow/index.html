@@ -123,14 +123,15 @@
                 var json_valid = true;
                 try {
                     var payload = JSON.parse($("#dataflow_file").val());
-                    payload.email = $('#email').val();
+                    payload.participant_id = $('#participant_id').val();
+                    payload.task = "Linking RecordSets";
                 } catch (e) {
                     json_valid = false;
                 }
 
                 if (json_valid === true) {
                     var xhr = new XMLHttpRequest();
-                    xhr.open("POST", "https://qa-dataflownode.zerionsoftware.com/domain/qatest/services/webhooks/5716fc7ce66091a678e842b69dc1b63bef10d7f4-4899ea0ca2ccb5ff1694e9c89546c5eb8c7bfb37", true);
+                    xhr.open("POST", "https://qa-dataflownode.zerionsoftware.com/domain/qatest/services/webhooks/b3299c78ad81399563f540ac4837ec482ab11991-e4026d4fb5af373b584c3676c03687e96f3c3353", true);
                     xhr.setRequestHeader('Content-Type', 'application/json');
                     xhr.send(JSON.stringify(payload));
 
@@ -215,8 +216,8 @@
                                 <h4>How to Submit</h4>
                                 <p>Import the Dataflow and submit for review. Check your email afterwards for the results.</p>
                                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-    <input class="mdl-textfield__input" type="text" id="email">
-    <label class="mdl-textfield__label" for="email">Email Address</label>
+    <input class="mdl-textfield__input" type="text" id="participant_id">
+    <label class="mdl-textfield__label" for="participant_id">Participant ID</label>
   </div>
                                 <p>
                                     <textarea id="dataflow_file" readonly="readonly"></textarea>

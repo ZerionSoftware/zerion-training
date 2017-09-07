@@ -22,7 +22,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="A front-end template that helps you build fast, modern mobile web apps.">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-    <title>Dataflow Automation Certification Task: Our First Dataflow</title>
+    <title>Dataflow Automation Certification Task: JavaScript Functions</title>
 
     <!-- Add to homescreen for Chrome on Android -->
     <meta name="mobile-web-app-capable" content="yes">
@@ -70,46 +70,37 @@
             font-size: 110%;
         }
 
-        #webhook-url {
-            display: none;
-        }
-
         .mdl-tabs.is-upgraded .mdl-tabs__tab.is-active:after {
             background: rgb(123, 170, 64) !important;
         }
+
+        .mdl-list {
+            margin-top: 0px;
+        }
+
+        .mdl-list__item {
+            padding: 0px;
+        }
+
+        .demo-list-radio {
+            display: inline;
+        }
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="records.js"></script>
     <script>
         $(document).ready(function() {
-            $("#webhook-select").click(function() {
-                $("#webhook-url").css("display", "initial");
-                $("#webhook-url").select();
-                document.execCommand("copy");
-                $("#webhook-url").remove();
-                $("#clipboard").text("copied!");
-            });
-
-            $("#submit-task").click(function() {
-                if ($("#participant_id").val().trim() === "") {
-                    alert("All fields are required and must be filled in");
+            $('#send-record').click(function() {
+                if ($('#webhook-url').val().trim().length < 10) {
+                    alert("Please enter a Webhook URL");
                 } else {
-                    var payload = {};
-                    payload.participant_id = $('#participant_id').val();
-                    payload.task = "Our First Dataflow";
-                    payload.result = "passed";
-                    try {
-                        var xhr = new XMLHttpRequest();
-                        xhr.open("POST", $('#submit-url').val(), true);
-                        xhr.setRequestHeader('Content-Type', 'application/json');
-                        xhr.send(JSON.stringify(payload));
-                        $("#task_submitted").css("display", "initial");
-                        $("#task_interface").slideUp();
-                    } catch (e) {
-                        $('#submit-url').val() = "";
-                        $('#name').val() = "";
-                        $('#username').val() = "";
-                        $('#email').val() = "";
-                    }
+                    var n = Math.floor(Math.random() * 10);
+                    var payload = records[n];
+                    var xhr = new XMLHttpRequest();
+                    xhr.open("POST", $('#webhook-url').val(), true);
+                    xhr.setRequestHeader('Content-Type', 'application/json');
+                    xhr.send(JSON.stringify(payload));
+                    alert("Record sent, check your Dataflow then move on to Step 2");
                 }
             });
         });
@@ -131,7 +122,7 @@
                         <!-- <h4>Task: Recreating a Dataflow</h4> -->
                         <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
                             <div class="mdl-tabs__tab-bar">
-                                <a href="#instruction-panel" class="mdl-tabs__tab is-active">Instructions</a>
+                                <a href="#instruction-panel" class="mdl-tabs__tab is-active">Get Started</a>
                                 <a href="#step-1-panel" class="mdl-tabs__tab">Step 1</a>
                                 <a href="#step-2-panel" class="mdl-tabs__tab">Step 2</a>
                                 <a href="#step-3-panel" class="mdl-tabs__tab">Step 3</a>
@@ -141,17 +132,39 @@
                                 <!-- Instructions -->
                                 <h4>What Do I Do?</h4>
                                 <p>
-                                    It's time to build your first Dataflow! This won't be too difficult, but follow along with our steps to make sure you are successful.
+                                    JavaScript is best learned through example and practice. In this task you will be using a combination of JavaScript commands as well as Dataflow built-in functions to transform a record. To start, download and import the initial Dataflow.
                                 </p>
+                                <p><button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" id="download-dataflow">Download Dataflow</button></p>
                                 <p>
-                                    Your goal is to create a simple Dataflow with three Objects: Webhook, RecordSet, and HTTP POST. You probably don't know what the HTTP POST Action is, but that's ok we'll walk you through the configuration.
+                                    After the Dataflow has been imported, make the following changes before we move on to practicing JavaScript.
                                 </p>
-                                <p>
-                                    After creating the Dataflow, you will complete the task by submitting a record via the <strong>Submit Task</strong> tab, that will travel through your Dataflow and into a Dataflow used for validating the certification.
-                                </p>
-                                <p>
-                                    If you're ready to get started, let's move on to Step 1.
-                                </p>
+                                <ul class="demo-list-control mdl-list">
+                                    <li class="mdl-list__item">
+                                        <span class="mdl-list__item-secondary-action">
+                                       <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="list-checkbox-1">
+                                         <input type="checkbox" id="list-checkbox-1" class="mdl-checkbox__input" />
+                                       </label>
+                                    </span>
+                                        <span class="mdl-list__item-primary-content">
+                                     Add your username to the description of the Dataflow
+                                  </span>
+                                    </li>
+                                    <li class="mdl-list__item">
+                                        <span class="mdl-list__item-secondary-action">
+                                       <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="list-checkbox-2">
+                                         <input type="checkbox" id="list-checkbox-2" class="mdl-checkbox__input" />
+                                       </label>
+                                    </span>
+                                        <span class="mdl-list__item-primary-content">
+                                     Use the button below to send a record to your Dataflow and compare the difference between the two RecordSets. Once you're done, proceed to the next step.
+                                  </span>
+                                    </li>
+                                </ul>
+                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                    <input class="mdl-textfield__input" type="text" id="webhook-url">
+                                    <label class="mdl-textfield__label" for="webhook-url">Webhook URL</label>
+                                </div>
+                                <p><button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" id="send-record">Send Record</button></p>
                             </div>
                             <div class="mdl-tabs__panel" id="step-1-panel">
                                 <!-- Step 1 -->
@@ -170,6 +183,18 @@
                                     Now that we have a blank Dataflow created, the first thing to do is add a RecordSet. We also have to attach a Webhook to the RecordSet. If you are comfortable doing these two steps together then do so. Otherwise, after adding the RecordSet, select it
                                     and in the Builder menu navigate to <span class="code">Data Inputs > Add Webhook</span>.
                                 </p>
+                                <ul class="demo-list-control mdl-list">
+                                    <li class="mdl-list__item">
+                                        <span class="mdl-list__item-secondary-action">
+                                   <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="list-checkbox-3">
+                                     <input type="checkbox" id="list-checkbox-3" class="mdl-checkbox__input" />
+                                   </label>
+                                </span>
+                                        <span class="mdl-list__item-primary-content">
+                                 Apply a New Filter to `lowercase_keys`. In the Transform Return field, enter the text: dataflow.toKeysLowerCase(record)
+                              </span>
+                                    </li>
+                                </ul>
                             </div>
                             <div class="mdl-tabs__panel" id="step-3-panel">
                                 <!-- Step 3 -->
@@ -178,65 +203,14 @@
                                     The final step in building our first Dataflow is to add an HTTP POST Action. Don't worry too much about the specific details of the HTTP POST, we'll cover it later on. For now let's just use it to our advantage. The purpose of the HTTP POST is to send
                                     data to an external source, in this case another Webhook.
                                 </p>
-                                <p>
-                                    After selecting the RecordSet, navigate in the Builder menu to <span class="code">Actions > HTTP POST</span>. You can name the Action anything you like, but use the following chart to fill in the other details:
-                                    <center>
-                                        <table class="mdl-data-table mdl-js-data-table mdl-data-table mdl-shadow--2dp">
-                                            <thead>
-                                                <tr>
-                                                    <th>Property</th>
-                                                    <th>Value</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>Post Endpoint URL</td>
-                                                    <td style="text-align: left">
-                                                        Copy the Webhook URL by clicking <button id="webhook-select" class="mdl-button mdl-js-button mdl-button--icon">
-  <i class="material-icons">assignment</i>
-</button>
-                                                        <div id="clipboard" class="mdl-tooltip mdl-tooltip--right" data-mdl-for="webhook-select">
-                                                            Click to copy Webhook URL
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Content-Type</td>
-                                                    <td style="text-align: left">Raw</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Raw Type</td>
-                                                    <td style="text-align: left">JSON (application/json)</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Body</td>
-                                                    <td style="text-align: left">{{json record}}</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </center>
-                                </p>
-                                <input type="text" id="webhook-url" value="https://qa-dataflownode.zerionsoftware.com/domain/qatest/services/webhooks/b3299c78ad81399563f540ac4837ec482ab11991-e4026d4fb5af373b584c3676c03687e96f3c3353" />
                             </div>
                             <div class="mdl-tabs__panel" id="submission-panel">
                                 <!-- Submission -->
                                 <h4>How to Submit the Task</h4>
                                 <p>
-                                    You've completed your Dataflow and now it's time to use it.</p> First, go back to your Dataflow, select the Webhook, and copy the Webhook URL.</p><p>Now, fill in the following fields:
+                                    You've completed your Dataflow and now it's time to use it.</p> First, go back to your Dataflow, select the Webhook, and copy the Webhook URL.</p>
+                                <p>Now, fill in the following fields:
                                 </p>
-                                <!-- Textfield with Floating Label -->
-                                <form>
-                                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                        <input class="mdl-textfield__input" type="text" id="submit-url">
-                                        <label class="mdl-textfield__label" for="submit-url">Webhook URL</label>
-                                    </div><br />
-                                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                        <input class="mdl-textfield__input" type="text" id="participant_id">
-                                        <label class="mdl-textfield__label" for="participant_id">Participant ID</label>
-                                    </div><br />
-                                    <!-- Accent-colored raised button with ripple -->
-                                </form>
-                                <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" id="submit-task">Test Dataflow & Submit Task</button>
                             </div>
                         </div>
                         <!-- End of Content -->

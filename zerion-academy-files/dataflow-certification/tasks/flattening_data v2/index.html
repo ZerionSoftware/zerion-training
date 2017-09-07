@@ -175,7 +175,7 @@
             });
 
             $('#switch').click(function() {
-               $('#t1').attr('href', '#trial1-panel');
+                $('#t1').attr('href', '#trial1-panel');
             });
 
             $('#btn_send-trial-1').click(function() {
@@ -334,6 +334,14 @@
                     $('#btn_t3').slideDown();
                     document.getElementById("record3").value = errorList.join("\n");
                 } else {
+                    var payload = {};
+                    payload.task = "Data Flattening";
+                    payload.participant_id = $('#participant_id').val();
+                    payload.result = "passed";
+                    var xhr = new XMLHttpRequest();
+                    xhr.open("POST", "https://qa-dataflownode.zerionsoftware.com/domain/qatest/services/webhooks/b3299c78ad81399563f540ac4837ec482ab11991-e4026d4fb5af373b584c3676c03687e96f3c3353", true);
+                    xhr.setRequestHeader('Content-Type', 'application/json');
+                    xhr.send(JSON.stringify(payload));
                     alert("That's correct!! You've completed this task and your progress has been updated.");
                 }
             });
@@ -368,6 +376,11 @@
                                 <p>In the Builder Menu, under Dataflow, choose 'Import Dataflow'. Select the downloaded file and click Upload -- you may need to change the Dataflow name. Once the Dataflow is imported, select the Webhook and copy/paste the
                                     URL below.</p>
                                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                    <input class="mdl-textfield__input" type="text" id="participant_id">
+                                    <label class="mdl-textfield__label" for="participant_id">Participant ID</label>
+                                </div>
+                                <br />
+                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                                     <input class="mdl-textfield__input" type="text" id="webhook">
                                     <label class="mdl-textfield__label" for="webhook">Webhook URL</label>
                                 </div>
@@ -384,7 +397,7 @@
                                 </div>
                                 <p><textarea class="record" id="record1"></textarea></p>
                                 <div id="t1_ans">
-                                   <p>Check your Dataflow and enter in the number of records for each type of data flatten.</p>
+                                    <p>Check your Dataflow and enter in the number of records for each type of data flatten.</p>
                                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                                         <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="rs1-record-vehicles">
                                         <label class="mdl-textfield__label" for="rs1-record-vehicles">record.vehicles</label>
@@ -416,7 +429,7 @@
                                 </div>
                                 <p><textarea class="record" id="record2"></textarea></p>
                                 <div id="t2_ans">
-                                   <p>Check your Dataflow and enter in the number of records for each type of data flatten.</p>
+                                    <p>Check your Dataflow and enter in the number of records for each type of data flatten.</p>
                                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                                         <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="rs2-record-vehicles">
                                         <label class="mdl-textfield__label" for="rs2-record-vehicles">record.vehicles</label>
@@ -448,7 +461,7 @@
                                 </div>
                                 <p><textarea class="record" id="record3"></textarea></p>
                                 <div id="t3_ans">
-                                   <p>Check your Dataflow and enter in the number of records for each type of data flatten.</p>
+                                    <p>Check your Dataflow and enter in the number of records for each type of data flatten.</p>
                                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                                         <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="rs3-record-vehicles">
                                         <label class="mdl-textfield__label" for="rs3-record-vehicles">record.vehicles</label>
