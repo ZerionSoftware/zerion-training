@@ -1,0 +1,423 @@
+<!doctype html>
+<!--
+  Material Design Lite
+  Copyright 2015 Google Inc. All rights reserved.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      https://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License
+-->
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="A front-end template that helps you build fast, modern mobile web apps.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <title>Dataflow Automation Certification</title>
+
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="icon" sizes="192x192" href="images/android-desktop.png">
+
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Material Design Lite">
+    <link rel="apple-touch-icon-precomposed" href="images/ios-desktop.png">
+
+    <!-- Tile icon for Win8 (144x144 + tile color) -->
+    <meta name="msapplication-TileImage" content="images/touch/ms-touch-icon-144x144-precomposed.png">
+    <meta name="msapplication-TileColor" content="#3372DF">
+
+    <link rel="shortcut icon" href="images/favicon.png">
+
+    <!-- SEO: If your mobile URL is different from the desktop URL, add a canonical link to the desktop page https://developers.google.com/webmasters/smartphone-sites/feature-phones -->
+    <!--
+    <link rel="canonical" href="http://www.example.com/">
+    -->
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.teal-red.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        #view-source {
+            position: fixed;
+            display: block;
+            right: 0;
+            bottom: 0;
+            margin-right: 40px;
+            margin-bottom: 40px;
+            z-index: 900;
+        }
+
+        .demo-ribbon {
+            background-color: #89bd48;
+            !important;
+        }
+
+        .mdl-tabs.is-upgraded .mdl-tabs__tab.is-active:after {
+            background: rgb(123, 170, 64) !important;
+        }
+
+        .demo-list-icon {
+            width: 300px;
+        }
+
+        code {
+            font-family: 'Ubuntu Mono', 'Monaco', 'Consolas', 'monospace';
+            font-size: 110%;
+        }
+
+        .mdl-tabs.is-upgraded .mdl-tabs__tab.is-active:after {
+            background: rgb(123, 170, 64) !important;
+        }
+
+        .demo-list-control {
+            width: 600px;
+        }
+
+        .demo-list-radio {
+            display: inline;
+        }
+
+        li.mdl-list__item {
+            padding: 5px;
+            min-height: 38px;
+            font-size: 100%;
+        }
+
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // jquery goes here
+        });
+    </script>
+</head>
+
+<body>
+    <div class="demo-layout mdl-layout mdl-layout--fixed-header mdl-js-layout mdl-color--grey-100">
+        <div class="demo-ribbon"></div>
+        <main class="demo-main mdl-layout__content">
+            <div class="demo-container mdl-grid">
+                <div class="mdl-cell mdl-cell--2-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
+                <div class="demo-content mdl-color--white mdl-shadow--4dp content mdl-color-text--grey-800 mdl-cell mdl-cell--8-col">
+                    <!-- Beginning of Content -->
+                    <div id="task_submitted" style="text-align: center; display: none;">
+                        <h3>Thank you for your submission, We'll verify your Connection and mark the task complete as soon as possible.</h3>
+                    </div>
+                    <div id="task_interface">
+                        <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+                            <div class="mdl-tabs__tab-bar">
+                                <a href="#ben-panel" class="mdl-tabs__tab is-active">Ben West</a>
+                                <a href="#kathleen-panel" class="mdl-tabs__tab">Kathleen Morris</a>
+                                <a href="#justin-panel" class="mdl-tabs__tab">Justin Tallio</a>
+                                <a href="#patrick-panel" class="mdl-tabs__tab">Patrick Moss</a>
+                            </div>
+                            <div class="mdl-tabs__panel is-active" id="ben-panel">
+                                <!-- Ben West -->
+                                <h4>Requirements</h4>
+                                <ul class="demo-list-control mdl-list">
+                                    <li class="mdl-list__item">
+                                        <span class="mdl-list__item-secondary-action">
+                                       <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="list-ben-1">
+                                         <input type="checkbox" id="list-ben-1" class="mdl-checkbox__input" />
+                                       </label>
+                                    </span>
+                                        <span class="mdl-list__item-primary-content">
+                                     Filter out records where the number of people in the household is zero
+                                  </span>
+                                    </li>
+                                    <li class="mdl-list__item">
+                                        <span class="mdl-list__item-secondary-action">
+                                       <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="list-ben-2">
+                                         <input type="checkbox" id="list-ben-2" class="mdl-checkbox__input" />
+                                       </label>
+                                    </span>
+                                        <span class="mdl-list__item-primary-content">
+                                     Convert empty strings to null
+                                  </span>
+                                    </li>
+                                    <li class="mdl-list__item">
+                                        <span class="mdl-list__item-secondary-action">
+                                       <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="list-ben-3">
+                                         <input type="checkbox" id="list-ben-3" class="mdl-checkbox__input" />
+                                       </label>
+                                    </span>
+                                        <span class="mdl-list__item-primary-content">
+                                     Delete parent_element_id, parent_page_id, parent_record_id if they equal 0
+                                  </span>
+                                    </li>
+                                    <li class="mdl-list__item">
+                                        <span class="mdl-list__item-secondary-action">
+                                       <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="list-ben-4">
+                                         <input type="checkbox" id="list-ben-4" class="mdl-checkbox__input" />
+                                       </label>
+                                    </span>
+                                        <span class="mdl-list__item-primary-content">
+                                     Change created_date, modified_date, and server_modified_date to YYYY-MM-DD HH:mm:ss format
+                                  </span>
+                                    </li>
+                                    <li class="mdl-list__item">
+                                        <span class="mdl-list__item-secondary-action">
+                                       <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="list-ben-5">
+                                         <input type="checkbox" id="list-ben-5" class="mdl-checkbox__input" />
+                                       </label>
+                                    </span>
+                                        <span class="mdl-list__item-primary-content">
+                                     Create a new key/value pair called 'print_first_visit_date' with the format M/D/YY based on 'clts_first_visit_date'
+                                  </span>
+                                    </li>
+                                    <li class="mdl-list__item">
+                                        <span class="mdl-list__item-secondary-action">
+                                       <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="list-ben-6">
+                                         <input type="checkbox" id="list-ben-6" class="mdl-checkbox__input" />
+                                       </label>
+                                    </span>
+                                        <span class="mdl-list__item-primary-content">
+                                     Create branch for challenging households
+                                  </span>
+                                    </li>
+                                    <li class="mdl-list__item">
+                                        <span class="mdl-list__item-secondary-action">
+                                       <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="list-ben-7">
+                                         <input type="checkbox" id="list-ben-7" class="mdl-checkbox__input" />
+                                       </label>
+                                    </span>
+                                        <span class="mdl-list__item-primary-content">
+                                     Within challenging households, create two branches. One branch for government officials and the other for none
+                                  </span>
+                                    </li>
+                                </ul>
+                                <h4>Mock Solution</h4>
+                                <img src="images/ben.png" style="width: 98%" />
+                            </div>
+                            <div class="mdl-tabs__panel" id="kathleen-panel">
+                                <h4>Requirements</h4>
+                                <ul class="demo-list-control mdl-list">
+                                    <li class="mdl-list__item">
+                                        <span class="mdl-list__item-secondary-action">
+                                       <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="list-kathleen-1">
+                                         <input type="checkbox" id="list-kathleen-1" class="mdl-checkbox__input" />
+                                       </label>
+                                    </span>
+                                        <span class="mdl-list__item-primary-content">
+                                     Use dataflow.toKeysLowerCase(record) to convert all keys to lower-case
+                                  </span>
+                                    </li>
+                                    <li class="mdl-list__item">
+                                        <span class="mdl-list__item-secondary-action">
+                                       <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="list-kathleen-2">
+                                         <input type="checkbox" id="list-kathleen-2" class="mdl-checkbox__input" />
+                                       </label>
+                                    </span>
+                                        <span class="mdl-list__item-primary-content">
+                                     Create two branches (hh_info subform & remainder of the record)
+                                  </span>
+                                    </li>
+                                    <li class="mdl-list__item">
+                                        <span class="mdl-list__item-secondary-action">
+                                       <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="list-kathleen-3">
+                                         <input type="checkbox" id="list-kathleen-3" class="mdl-checkbox__input" />
+                                       </label>
+                                    </span>
+                                        <span class="mdl-list__item-primary-content">
+                                     Flatten hh_info by creating a new RecordSet and putting record.hh_info in the Transform Return
+                                  </span>
+                                    </li>
+                                    <li class="mdl-list__item">
+                                        <span class="mdl-list__item-secondary-action">
+                                       <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="list-kathleen-4">
+                                         <input type="checkbox" id="list-kathleen-4" class="mdl-checkbox__input" />
+                                       </label>
+                                    </span>
+                                        <span class="mdl-list__item-primary-content">
+                                     Delete record.hh_info in second branch
+                                  </span>
+                                    </li>
+                                    <li class="mdl-list__item">
+                                        <span class="mdl-list__item-secondary-action">
+                                       <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="list-kathleen-5">
+                                         <input type="checkbox" id="list-kathleen-5" class="mdl-checkbox__input" />
+                                       </label>
+                                    </span>
+                                        <span class="mdl-list__item-primary-content">
+                                     In record.dietary_diversity, convert "1" and "0" to numeric data-type
+                                  </span>
+                                    </li>
+                                    <li class="mdl-list__item">
+                                        <span class="mdl-list__item-secondary-action">
+                                       <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="list-kathleen-6">
+                                         <input type="checkbox" id="list-kathleen-6" class="mdl-checkbox__input" />
+                                       </label>
+                                    </span>
+                                        <span class="mdl-list__item-primary-content">
+                                     In record.hiv_aids_sub, convert "yes" to 1 and "no" to 0
+                                  </span>
+                                    </li>
+                                    <li class="mdl-list__item">
+                                        <span class="mdl-list__item-secondary-action">
+                                       <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="list-kathleen-7">
+                                         <input type="checkbox" id="list-kathleen-7" class="mdl-checkbox__input" />
+                                       </label>
+                                    </span>
+                                        <span class="mdl-list__item-primary-content">
+                                     In record.progress_out_of_poverty_index, convert all values that are numbers to numeric data-type
+                                  </span>
+                                    </li>
+                                    <li class="mdl-list__item">
+                                        <span class="mdl-list__item-secondary-action">
+                                       <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="list-kathleen-8">
+                                         <input type="checkbox" id="list-kathleen-8" class="mdl-checkbox__input" />
+                                       </label>
+                                    </span>
+                                        <span class="mdl-list__item-primary-content">
+                                     Flatten the remaining data using dataflow.flatteniFormSubformObject(record)
+                                  </span>
+                                    </li>
+                                </ul>
+                                <h4>Mock Solution</h4>
+                                <img src="images/kathleen.png" style="width: 98%" />
+                            </div>
+                            <div class="mdl-tabs__panel" id="justin-panel">
+                                <h4>Requirements</h4>
+                                <ul class="demo-list-control mdl-list">
+                                    <li class="mdl-list__item">
+                                        <span class="mdl-list__item-secondary-action">
+                                       <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="list-justin-1">
+                                         <input type="checkbox" id="list-justin-1" class="mdl-checkbox__input" />
+                                       </label>
+                                    </span>
+                                        <span class="mdl-list__item-primary-content">
+                                     Use dataflow.flatteniFormSubformObject(record) to flatten each record
+                                  </span>
+                                    </li>
+                                    <li class="mdl-list__item">
+                                        <span class="mdl-list__item-secondary-action">
+                                       <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="list-justin-2">
+                                         <input type="checkbox" id="list-justin-2" class="mdl-checkbox__input" />
+                                       </label>
+                                    </span>
+                                        <span class="mdl-list__item-primary-content">
+                                     Standardize all the keys to lowercase using dataflow.toKeysLowerCase()
+                                  </span>
+                                    </li>
+                                    <li class="mdl-list__item">
+                                        <span class="mdl-list__item-secondary-action">
+                                       <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="list-justin-3">
+                                         <input type="checkbox" id="list-justin-3" class="mdl-checkbox__input" />
+                                       </label>
+                                    </span>
+                                        <span class="mdl-list__item-primary-content">
+                                     Count number of email addresses in record.send_email_to_ and assign it to a new property called record.num_emails
+                                  </span>
+                                    </li>
+                                    <li class="mdl-list__item">
+                                        <span class="mdl-list__item-secondary-action">
+                                       <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="list-justin-4">
+                                         <input type="checkbox" id="list-justin-4" class="mdl-checkbox__input" />
+                                       </label>
+                                    </span>
+                                        <span class="mdl-list__item-primary-content">
+                                     Convert 'pass' to 'Pass'
+                                  </span>
+                                    </li>
+                                    <li class="mdl-list__item">
+                                        <span class="mdl-list__item-secondary-action">
+                                       <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="list-justin-5">
+                                         <input type="checkbox" id="list-justin-5" class="mdl-checkbox__input" />
+                                       </label>
+                                    </span>
+                                        <span class="mdl-list__item-primary-content">
+                                     Capitalize first letter of manager_first_name and manager_last_name
+                                  </span>
+                                    </li>
+                                    <li class="mdl-list__item">
+                                        <span class="mdl-list__item-secondary-action">
+                                       <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="list-justin-6">
+                                         <input type="checkbox" id="list-justin-6" class="mdl-checkbox__input" />
+                                       </label>
+                                    </span>
+                                        <span class="mdl-list__item-primary-content">
+                                     Update manager_name to reflect changes
+                                  </span>
+                                    </li>
+                                    <li class="mdl-list__item">
+                                        <span class="mdl-list__item-secondary-action">
+                                       <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="list-justin-7">
+                                         <input type="checkbox" id="list-justin-7" class="mdl-checkbox__input" />
+                                       </label>
+                                    </span>
+                                        <span class="mdl-list__item-primary-content">
+                                     Filter out records with no serial number available
+                                  </span>
+                                    </li>
+                                    <li class="mdl-list__item">
+                                        <span class="mdl-list__item-secondary-action">
+                                       <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="list-justin-8">
+                                         <input type="checkbox" id="list-justin-8" class="mdl-checkbox__input" />
+                                       </label>
+                                    </span>
+                                        <span class="mdl-list__item-primary-content">
+                                     Split model__value based on hyphen
+                                  </span>
+                                    </li>
+                                </ul>
+                                <h4>Mock Solution</h4>
+                                <img src="images/justin.png" style="width: 95%" />
+                            </div>
+                            <div class="mdl-tabs__panel" id="patrick-panel">
+                                <h4>Requirements</h4>
+                                <ul class="demo-list-control mdl-list">
+                                    <li class="mdl-list__item">
+                                        <span class="mdl-list__item-secondary-action">
+                                       <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="list-patrick-1">
+                                         <input type="checkbox" id="list-patrick-1" class="mdl-checkbox__input" />
+                                       </label>
+                                    </span>
+                                        <span class="mdl-list__item-primary-content">
+                                     TBD
+                                  </span>
+                                    </li>
+                                    <li class="mdl-list__item">
+                                        <span class="mdl-list__item-secondary-action">
+                                       <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="list-patrick-2">
+                                         <input type="checkbox" id="list-patrick-2" class="mdl-checkbox__input" />
+                                       </label>
+                                    </span>
+                                        <span class="mdl-list__item-primary-content">
+                                     TBD
+                                  </span>
+                                    </li>
+                                    <li class="mdl-list__item">
+                                        <span class="mdl-list__item-secondary-action">
+                                       <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="list-patrick-3">
+                                         <input type="checkbox" id="list-patrick-3" class="mdl-checkbox__input" />
+                                       </label>
+                                    </span>
+                                        <span class="mdl-list__item-primary-content">
+                                     TBD
+                                  </span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- End of Content -->
+                    </div>
+                </div>
+        </main>
+        </div>
+        <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+</body>
+
+</html>
