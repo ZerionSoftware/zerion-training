@@ -386,7 +386,7 @@
                                        </label>
                                     </span>
                                         <span class="mdl-list__item-primary-content">
-                                     TBD
+                                     Filter out records with no consent
                                   </span>
                                     </li>
                                     <li class="mdl-list__item">
@@ -396,7 +396,7 @@
                                        </label>
                                     </span>
                                         <span class="mdl-list__item-primary-content">
-                                     TBD
+                                     Convert all keys to lowercase using dataflow.toKeysLowerCase()
                                   </span>
                                     </li>
                                     <li class="mdl-list__item">
@@ -406,10 +406,52 @@
                                        </label>
                                     </span>
                                         <span class="mdl-list__item-primary-content">
-                                     TBD
+                                     Concatenate location1, location2, and location3 into a single property
+                                  </span>
+                                    </li>
+                                    <li class="mdl-list__item">
+                                        <span class="mdl-list__item-secondary-action">
+                                       <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="list-patrick-4">
+                                         <input type="checkbox" id="list-patrick-4" class="mdl-checkbox__input" />
+                                       </label>
+                                    </span>
+                                        <span class="mdl-list__item-primary-content">
+                                     Branch records between students, teachers, and no response (3 branches total)
+                                  </span>
+                                    </li>
+                                    <li class="mdl-list__item">
+                                        <span class="mdl-list__item-secondary-action">
+                                       <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="list-patrick-5">
+                                         <input type="checkbox" id="list-patrick-5" class="mdl-checkbox__input" />
+                                       </label>
+                                    </span>
+                                        <span class="mdl-list__item-primary-content">
+                                     For teachers branch, binarize "yes" or "no" to 1 or 0
+                                  </span>
+                                    </li>
+                                    <li class="mdl-list__item">
+                                        <span class="mdl-list__item-secondary-action">
+                                       <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="list-patrick-6">
+                                         <input type="checkbox" id="list-patrick-6" class="mdl-checkbox__input" />
+                                       </label>
+                                    </span>
+                                        <span class="mdl-list__item-primary-content">
+                                     For students branch, calculate dev_humanitarian_efficacy within Dataflow and store in a new property called 'dev_humanitarian_efficacy_dfa'
+                                  </span>
+                                    </li>
+                                    <li class="mdl-list__item">
+                                        <span class="mdl-list__item-secondary-action">
+                                       <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="list-patrick-7">
+                                         <input type="checkbox" id="list-patrick-7" class="mdl-checkbox__input" />
+                                       </label>
+                                    </span>
+                                        <span class="mdl-list__item-primary-content">
+                                     Filter teachers who have an activism score of 10
                                   </span>
                                     </li>
                                 </ul>
+                                <h4>Mock Solution</h4>
+                                <img src="images/patrick.png" style="width: 95%" />
                             </div>
                         </div>
                         <!-- End of Content -->
